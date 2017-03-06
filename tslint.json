@@ -9,11 +9,11 @@
     // Custom
     "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
     "interface-name": [false, "always-prefix"],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "no-var": "error",
     // Angular 2
     "component-class-suffix": true,
-    // "component-selector": [true, "element", "my", "kebab-case"],
     "directive-class-suffix": true,
-    // "directive-selector": [true, "attribute", "my", "camelCase"],
     "import-destructuring-spacing": true,
     "invoke-injectable": true,
     "no-access-missing-member": true,
