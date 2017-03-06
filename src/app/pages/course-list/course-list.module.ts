@@ -14,7 +14,5 @@ import { CoursesFilterComponent } from './courses-filter';
   imports: [],
 })
 export class CourseListModule {
-  constructor() {
 
-  }
 }

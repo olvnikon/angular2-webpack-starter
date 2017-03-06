@@ -1,4 +1,4 @@
 export class NavLink {
-  url: string;
-  caption: string;
+  public url: string;
+  public caption: string;
 }

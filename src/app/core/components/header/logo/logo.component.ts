@@ -8,8 +8,4 @@ import { Component, Input } from '@angular/core';
 })
 export class LogoComponent {
   @Input() image: string;
-
-  constructor() {
-
-  }
 }

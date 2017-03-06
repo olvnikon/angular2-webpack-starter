@@ -8,9 +8,5 @@ import { Course } from '../../../core/entities';
   providers: [],
 })
 export class CourseComponent {
-  @Input() course: Course;
-
-  constructor() {
-
-  }
+  @Input() private course: Course;
 }

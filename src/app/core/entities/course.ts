@@ -1,6 +1,6 @@
 export class Course {
-  name: string;
-  duration: string;
-  date: Date;
-  description: string;
+  public name: string;
+  public duration: string;
+  public date: Date;
+  public description: string;
 }

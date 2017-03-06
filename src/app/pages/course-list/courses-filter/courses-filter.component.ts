@@ -1,17 +1,16 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'courses-filter'
+  selector: 'courses-filter',
+  templateUrl: './courses-filter.component.html',
+  styles: [require('./courses-filter.component.scss')],
+  providers: [],
 })
 export class CoursesFilterComponent {
-  filterString: string;
-  @Output() filter = new EventEmitter();
+  private filterString: string;
+  @Output() private filter = new EventEmitter();
 
-  constructor() {
-
-  }
-
-  onFilterStringChange() {
+  private onFilterStringChange() {
     this.filter.emit({
       filterString: this.filterString
     });

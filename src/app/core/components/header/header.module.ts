@@ -19,7 +19,5 @@ import { NavigationComponent } from './navigation';
   ],
 })
 export class HeaderModule {
-  constructor() {
 
-  }
 }

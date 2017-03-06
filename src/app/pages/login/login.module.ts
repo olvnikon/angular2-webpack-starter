@@ -10,7 +10,5 @@ import { LoginComponent } from './login.component';
   imports: [],
 })
 export class LoginModule {
-  constructor() {
 
-  }
 }
