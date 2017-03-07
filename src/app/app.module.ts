@@ -13,6 +13,7 @@ import {
 import {
   AuthService,
 } from './core/services';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {
     LoginModule,
     FooterModule,
     HeaderModule,
+    HttpModule,
   ],
   bootstrap: [
     AppComponent,
