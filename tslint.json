@@ -11,6 +11,7 @@
     "interface-name": [false, "always-prefix"],
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "no-var": "error",
+    "arrow-parens": "as-needed",
     // Angular 2
     "component-class-suffix": true,
     "directive-class-suffix": true,

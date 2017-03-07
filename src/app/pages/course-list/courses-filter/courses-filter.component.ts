@@ -4,7 +4,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
   selector: 'courses-filter',
   templateUrl: './courses-filter.component.html',
   styles: [require('./courses-filter.component.scss')],
-  providers: [],
 })
 export class CoursesFilterComponent {
   private filterString: string;

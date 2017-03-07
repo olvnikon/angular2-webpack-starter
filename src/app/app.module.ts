@@ -6,6 +6,13 @@ import {
   CourseListModule,
   LoginModule,
 } from './pages';
+import {
+  FooterModule,
+  HeaderModule,
+} from './core/components';
+import {
+  AuthService,
+} from './core/services';
 
 @NgModule({
   imports: [
@@ -13,6 +20,8 @@ import {
     CourseDetailsModule,
     CourseListModule,
     LoginModule,
+    FooterModule,
+    HeaderModule,
   ],
   bootstrap: [
     AppComponent,
@@ -20,7 +29,9 @@ import {
   declarations: [
     AppComponent,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+  ],
 })
 export class AppModule {
 

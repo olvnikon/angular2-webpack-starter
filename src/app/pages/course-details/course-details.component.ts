@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'course-details',
   templateUrl: './course-details.component.html',
   styles: [require('./course-details.component.scss')],
-  providers: [],
 })
 export class CourseDetailsComponent {
 

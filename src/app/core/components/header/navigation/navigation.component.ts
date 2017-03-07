@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { NavLink } from '../../../entities';
 
 @Component({
   selector: 'header-nav',
   templateUrl: './navigation.component.html',
   styles: [require('./navigation.component.scss')],
-  providers: []
 })
 export class NavigationComponent {
-  @Input() urls: string[];
+  @Input() private urls: NavLink[];
 }

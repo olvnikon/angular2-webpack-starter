@@ -5,7 +5,6 @@ import { Course } from '../../../core/entities';
   selector: 'course',
   templateUrl: './course.component.html',
   styles: [require('./course.component.scss')],
-  providers: [],
 })
 export class CourseComponent {
   @Input() private course: Course;
