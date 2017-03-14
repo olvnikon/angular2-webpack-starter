@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import template from './header.component.html';
 
 @Component({
+  template,
   selector: 'main-header',
-  templateUrl: './header.component.html',
   styles: [require('./header.component.scss')],
 })
 export class HeaderComponent {
