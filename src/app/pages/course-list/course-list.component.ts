@@ -46,4 +46,8 @@ export class CourseListComponent {
       }
     ];
   }
+
+  public deleteCourse(course: Course) {
+    console.log(course.id);
+  }
 }

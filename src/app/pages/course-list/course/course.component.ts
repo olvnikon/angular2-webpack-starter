@@ -7,15 +7,15 @@ import { Course } from '../../../core/entities';
   styles: [require('./course.component.scss')],
 })
 export class CourseComponent {
-  @Input() private course: Course;
-  @Output() private deleteCourse = new EventEmitter();
-  @Output() private editCourse = new EventEmitter();
+  @Input() public course: Course;
+  @Output() public deleteCourse = new EventEmitter();
+  @Output() public editCourse = new EventEmitter();
 
-  private onDeleteCourse() {
+  public onDeleteCourse() {
     this.deleteCourse.emit({ course: this.course });
   }
 
-  private onEditCourse() {
+  public onEditCourse() {
     this.editCourse.emit({ course: this.course });
   }
 }
