@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import template from './footer.component.html';
 
 @Component({
+  template,
   selector: 'main-footer',
-  templateUrl: './footer.component.html',
   styles: [require('./footer.component.scss')],
 })
 export class FooterComponent {

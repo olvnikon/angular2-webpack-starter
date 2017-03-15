@@ -17,7 +17,6 @@ import { LoginComponent } from './login';
   ],
   exports: [
     HeaderComponent,
-    LogoComponent,
   ],
 })
 export class HeaderModule {

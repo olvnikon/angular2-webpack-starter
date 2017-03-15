@@ -1,4 +1,4 @@
-export class LoggedUser {
-  public id: number;
-  public userName: string;
+export interface LoggedUser {
+  id: number;
+  userName: string;
 }

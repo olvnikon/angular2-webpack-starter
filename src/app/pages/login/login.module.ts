@@ -3,12 +3,9 @@ import { LoginComponent } from './login.component';
 import { AuthService } from '../../core/services';
 
 @NgModule({
-  exports: [],
   declarations: [
     LoginComponent,
   ],
-  providers: [],
-  imports: [],
 })
 export class LoginModule {
   constructor(private authService: AuthService) {

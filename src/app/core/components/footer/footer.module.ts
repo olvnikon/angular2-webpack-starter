@@ -5,8 +5,6 @@ import { FooterComponent } from './footer.component';
   declarations: [
     FooterComponent,
   ],
-  providers: [],
-  imports: [],
   exports: [
     FooterComponent,
   ],

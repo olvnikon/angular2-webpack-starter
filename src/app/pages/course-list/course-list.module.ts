@@ -11,7 +11,6 @@ import { BrowserModule } from '@angular/platform-browser';
     CourseComponent,
     CoursesFilterComponent,
   ],
-  providers: [],
   exports: [
     CourseListComponent,
   ],

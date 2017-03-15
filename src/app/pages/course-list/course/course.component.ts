@@ -1,9 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Course } from '../../../core/entities';
+import template from './course.component.html';
 
 @Component({
+  template,
   selector: 'course',
-  templateUrl: './course.component.html',
   styles: [require('./course.component.scss')],
 })
 export class CourseComponent {

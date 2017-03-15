@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Course } from '../../core/entities';
+import template from './course-list.component.html';
 
 @Component({
+  template,
   selector: 'course-list',
-  templateUrl: './course-list.component.html',
   styles: [require('./course-list.component.scss')],
 })
 export class CourseListComponent {

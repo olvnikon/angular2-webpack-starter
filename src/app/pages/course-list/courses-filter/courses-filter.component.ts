@@ -1,8 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import template from './courses-filter.component.html';
 
 @Component({
+  template,
   selector: 'courses-filter',
-  templateUrl: './courses-filter.component.html',
   styles: [require('./courses-filter.component.scss')],
 })
 export class CoursesFilterComponent {

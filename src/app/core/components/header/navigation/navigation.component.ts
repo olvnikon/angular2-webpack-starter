@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NavLink } from '../../../entities';
+import template from './navigation.component.html';
 
 @Component({
+  template,
   selector: 'header-nav',
-  templateUrl: './navigation.component.html',
   styles: [require('./navigation.component.scss')],
 })
 export class NavigationComponent {
