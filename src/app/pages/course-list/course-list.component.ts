@@ -8,7 +8,7 @@ import template from './course-list.component.html';
   styles: [require('./course-list.component.scss')],
 })
 export class CourseListComponent {
-  @Input() private courses: Course[];
+  @Input() public courses: Course[];
 
   constructor() {
     this.courses = [
