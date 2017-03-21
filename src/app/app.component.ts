@@ -9,7 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
     '../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
   ],
   template: `
-    <main-header (onPageChange)="goToPage($event)"></main-header>
+    <main-header [pageName]="pageName" (onPageChange)="goToPage($event)"></main-header>
     <course-list *ngIf="pageName === 'course-list'"></course-list>
     <login *ngIf="pageName === 'login'"></login>
     <main-footer></main-footer>
