@@ -9,11 +9,16 @@ import { Component, ViewEncapsulation } from '@angular/core';
     '../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
   ],
   template: `
-    <main-header></main-header>
-    <course-list></course-list>
+    <main-header (onPageChange)="goToPage($event)"></main-header>
+    <course-list *ngIf="pageName === 'course-list'"></course-list>
+    <login *ngIf="pageName === 'login'"></login>
     <main-footer></main-footer>
     `
 })
 export class AppComponent {
+  public pageName: string = 'course-list';
 
+  public goToPage(e) {
+    this.pageName = e.toPage;
+  }
 }

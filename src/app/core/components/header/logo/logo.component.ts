@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import template from './logo.component.html';
 
 @Component({
@@ -7,5 +7,10 @@ import template from './logo.component.html';
   styles: [require('./logo.component.scss')],
 })
 export class LogoComponent {
+  @Output() private onClick = new EventEmitter();
 
+  public handleClick(e) {
+    e.preventDefault();
+    this.onClick.emit();
+  }
 }

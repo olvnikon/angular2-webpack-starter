@@ -1,9 +1,9 @@
 <nav class="navbar navbar-default main-header">
     <div class="container-fluid">
-        <header-logo></header-logo>
+        <header-logo (onClick)="goToHomePage()"></header-logo>
         <div class="navbar-collapse">
             <header-nav></header-nav>
-            <header-login></header-login>
+            <header-login (onLogin)="goToLoginPage()"></header-login>
         </div>
     </div>
 </nav>

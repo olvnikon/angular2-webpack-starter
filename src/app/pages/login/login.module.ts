@@ -6,6 +6,9 @@ import { AuthService } from '../../core/services';
   declarations: [
     LoginComponent,
   ],
+  exports: [
+    LoginComponent,
+  ]
 })
 export class LoginModule {
   constructor(private authService: AuthService) {
@@ -13,9 +16,9 @@ export class LoginModule {
   }
 
   private login(formValues) {
-    this.authService.login(formValues.userName, formValues.password)
-      .subscribe(response => {
-        // ToDo: complete the logic
-      });
+    // this.authService.login(formValues.userName, formValues.password)
+    //   .subscribe(response => {
+    //     // ToDo: complete the logic
+    //   });
   }
 }

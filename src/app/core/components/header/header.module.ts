@@ -4,6 +4,7 @@ import { HeaderComponent } from './header.component';
 import { LogoComponent } from './logo';
 import { NavigationComponent } from './navigation';
 import { LoginComponent } from './login';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { LoginComponent } from './login';
     LoginComponent,
   ],
   imports: [
+    BrowserModule,
     RouterModule,
   ],
   exports: [
