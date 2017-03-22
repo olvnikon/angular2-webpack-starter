@@ -13,7 +13,9 @@ export class CourseComponent {
   @Output() public editCourse = new EventEmitter();
 
   public onDeleteCourse() {
-    this.deleteCourse.emit({ course: this.course });
+    if (confirm('Do you really want to delete this course?')) {
+      this.deleteCourse.emit({ course: this.course });
+    }
   }
 
   public onEditCourse() {

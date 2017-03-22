@@ -60,9 +60,7 @@ export class CourseService {
   }
 
   public update(course: Course): void {
-    courses = this
-      .getAll()
-      .map((c) => {
+    courses = courses.map((c) => {
         if (c.id === course.id) {
           return { ...course };
         }
@@ -72,11 +70,6 @@ export class CourseService {
   }
 
   public remove(course: Course): void {
-    if (!confirm('Do you really want to delete this course?')) {
-      return;
-    }
-    courses = this
-      .getAll()
-      .filter(c => (c.id !== course.id));
+    courses = courses.filter(c => (c.id !== course.id));
   }
 }
