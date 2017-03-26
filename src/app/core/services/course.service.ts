@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../../core/entities';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 let courses = [
   {
@@ -43,20 +44,27 @@ let lastInsertId = 3;
 
 @Injectable()
 export class CourseService {
-  public getAll(): Course[] {
-    return [...courses];
+  private courses = <BehaviorSubject<Course[]>> new BehaviorSubject([]);
+
+  constructor() {
+    this.updateCourses();
+  }
+
+  public getAll(): Observable<Course[]> {
+    return this.courses.asObservable();
   }
 
   public getById(id: number): Course {
     const foundCourse = courses
       .filter(course => (id === course.id));
-    return foundCourse.length ?
+    return foundCourse.length > 0 ?
       { ...foundCourse[0] } : null;
   }
 
   public create(course: Course): void {
     course.id = lastInsertId++;
-    courses = [...this.getAll(), course];
+    courses = [...courses, course];
+    this.updateCourses();
   }
 
   public update(course: Course): void {
@@ -67,9 +75,15 @@ export class CourseService {
         return c;
       }
     );
+    this.updateCourses();
   }
 
   public remove(course: Course): void {
     courses = courses.filter(c => (c.id !== course.id));
+    this.updateCourses();
+  }
+
+  private updateCourses() {
+    this.courses.next([...courses]);
   }
 }

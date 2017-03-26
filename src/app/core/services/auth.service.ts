@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { LoggedUser } from '../entities';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
   private loggedUser: LoggedUser;
+  private userInfo = <BehaviorSubject<LoggedUser>> new BehaviorSubject(null);
 
   constructor(private http: Http) {
 
@@ -16,19 +17,20 @@ export class AuthService {
       id: 1,
       userName: 'Vladimir'
     };
+    this.userInfo.next({...this.loggedUser});
   }
 
   public logout() {
     this.loggedUser = undefined;
+    this.userInfo.next(null);
   }
 
   public isAuthenticated(): boolean {
     return !!this.loggedUser;
   }
 
-  public getUserInfo() {
-    return this.isAuthenticated() ?
-      this.loggedUser.userName : '';
+  public getUserInfo(): Observable<LoggedUser> {
+    return this.userInfo.asObservable();
   }
 
   public login_normal(userName: string, password: string) {

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -13,7 +13,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <course-list *ngIf="pageName === 'course-list'"></course-list>
     <login *ngIf="pageName === 'login'"></login>
     <main-footer></main-footer>
-    `
+    `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   public pageName: string = 'course-list';

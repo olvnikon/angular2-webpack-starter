@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Course } from '../../core/entities';
 import { CourseService } from '../../core/services';
 import template from './course-list.component.html';
@@ -7,12 +7,15 @@ import template from './course-list.component.html';
   template,
   selector: 'course-list',
   styles: [require('./course-list.component.scss')],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent {
-  constructor(private courseService: CourseService) {}
+  public courses: Course[];
 
-  public get courses() {
-    return this.courseService.getAll();
+  constructor(private courseService: CourseService) {
+    this.courseService.getAll().subscribe(courses => {
+      this.courses = courses;
+    });
   }
 
   public deleteCourse(course: Course) {

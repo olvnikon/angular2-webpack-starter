@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from '../../core/services';
 import template from './login.component.html';
 
@@ -6,6 +6,7 @@ import template from './login.component.html';
   template,
   selector: 'login',
   styles: [require('./login.component.scss')],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   constructor(private authService: AuthService) {}

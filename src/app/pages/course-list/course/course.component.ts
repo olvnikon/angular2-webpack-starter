@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Course } from '../../../core/entities';
 import template from './course.component.html';
 
@@ -6,6 +6,7 @@ import template from './course.component.html';
   template,
   selector: 'course',
   styles: [require('./course.component.scss')],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseComponent {
   @Input() public course: Course;
