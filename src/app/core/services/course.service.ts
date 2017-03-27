@@ -41,43 +41,39 @@ let courses = [
   }
 ];
 let lastInsertId = 3;
-const delay = 2000;
+const delay = 1000;
 
 @Injectable()
 export class CourseService {
-  private courses = <BehaviorSubject<Course[]>> new BehaviorSubject([]);
+  private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
 
-  constructor() {
-    this.updateCourses();
+  public get coursesObservable(): Observable<Course[]> {
+    return this.courses;
   }
 
-  public getAll(): Observable<Course[]> {
-    return this.courses.asObservable();
+  public loadAll(): void {
+    setTimeout(() => this.courses.next([...courses]), delay);
   }
 
   public getById(id: number): Observable<Course> {
     return this
-      .courses
+      .coursesObservable
       .map(allCourses => allCourses.find(course => course.id === id));
   }
 
   public create(course: Course): void {
     course.id = lastInsertId++;
     courses = [...courses, course];
-    this.updateCourses();
+    this.loadAll();
   }
 
   public update(course: Course): void {
     courses = courses.map((c) => (c.id === course.id ? { ...course } : c));
-    this.updateCourses();
+    this.loadAll();
   }
 
   public remove(course: Course): void {
     courses = courses.filter(c => (c.id !== course.id));
-    this.updateCourses();
-  }
-
-  private updateCourses() {
-    setTimeout(() => this.courses.next([...courses]), delay);
+    this.loadAll();
   }
 }

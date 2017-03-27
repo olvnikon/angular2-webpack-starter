@@ -1,6 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Input,
-  OnInit
+  Component, OnInit,
 } from '@angular/core';
 import { Course } from '../../core/entities';
 import { CourseService } from '../../core/services';
@@ -11,24 +10,24 @@ import template from './course-list.component.html';
   template,
   selector: 'course-list',
   styles: [require('./course-list.component.scss')],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent implements OnInit {
   public courses: Course[];
 
   constructor(private courseService: CourseService,
-              private spinnerService: SpinnerService,
-              private ref: ChangeDetectorRef) {
+              private spinnerService: SpinnerService) {
   }
 
   public ngOnInit() {
     this.courseService
-      .getAll()
+      .coursesObservable
       .subscribe(courses => {
         this.courses = courses;
         this.spinnerService.stopLoading();
-        this.ref.markForCheck();
       });
+
+    this.spinnerService.runLoading();
+    this.courseService.loadAll();
   }
 
   public editCourse(course: Course) {

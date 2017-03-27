@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SpinnerService } from './spinner.service';
 import template from './spinner.component.html';
 
@@ -10,14 +10,13 @@ import template from './spinner.component.html';
 export class SpinnerComponent implements OnInit {
   public show: boolean = false;
 
-  constructor(private spinnerApi: SpinnerService, private ref: ChangeDetectorRef) {}
+  constructor(private spinnerApi: SpinnerService) {}
 
   public ngOnInit() {
     this.spinnerApi
       .show
       .subscribe(show => {
         this.show = show;
-        this.ref.markForCheck();
       });
   }
 }
