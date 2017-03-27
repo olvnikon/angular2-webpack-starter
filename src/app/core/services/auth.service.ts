@@ -5,28 +5,23 @@ import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
-  private loggedUser: LoggedUser;
   private userInfo = <BehaviorSubject<LoggedUser>> new BehaviorSubject(null);
 
-  constructor(private http: Http) {
-
-  }
+  constructor(private http: Http) {}
 
   public login() {
-    this.loggedUser = {
+    this.userInfo.next({
       id: 1,
       userName: 'Vladimir'
-    };
-    this.userInfo.next({...this.loggedUser});
+    });
   }
 
   public logout() {
-    this.loggedUser = undefined;
     this.userInfo.next(null);
   }
 
   public isAuthenticated(): boolean {
-    return !!this.loggedUser;
+    return !!this.userInfo.getValue();
   }
 
   public getUserInfo(): Observable<LoggedUser> {
@@ -41,7 +36,7 @@ export class AuthService {
     return this.http.post('/api/login/', JSON.stringify(loginInfo), options)
       .do((response: Response) => {
         if (response) {
-          this.loggedUser = <LoggedUser> response.json().user;
+          // this.loggedUser = <LoggedUser> response.json().user;
         }
       });
   }
@@ -50,7 +45,7 @@ export class AuthService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    this.loggedUser = undefined;
+    // this.loggedUser = undefined;
 
     return this.http.post('/api/logout', JSON.stringify({}), options);
   }

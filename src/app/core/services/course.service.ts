@@ -54,11 +54,10 @@ export class CourseService {
     return this.courses.asObservable();
   }
 
-  public getById(id: number): Course {
-    const foundCourse = courses
-      .filter(course => (id === course.id));
-    return foundCourse.length > 0 ?
-      { ...foundCourse[0] } : null;
+  public getById(id: number): Observable<Course> {
+    return this
+      .courses
+      .map(allCourses => allCourses.find(course => course.id === id));
   }
 
   public create(course: Course): void {
@@ -68,13 +67,7 @@ export class CourseService {
   }
 
   public update(course: Course): void {
-    courses = courses.map((c) => {
-        if (c.id === course.id) {
-          return { ...course };
-        }
-        return c;
-      }
-    );
+    courses = courses.map((c) => (c.id === course.id ? { ...course } : c));
     this.updateCourses();
   }
 

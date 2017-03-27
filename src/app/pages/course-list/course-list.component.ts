@@ -18,6 +18,11 @@ export class CourseListComponent {
     });
   }
 
+  public editCourse(course: Course) {
+    this.courseService.getById(course.id)
+      .subscribe(foundCourse => console.log(foundCourse));
+  }
+
   public deleteCourse(course: Course) {
     this.courseService.remove(course);
   }
