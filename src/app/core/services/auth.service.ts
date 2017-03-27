@@ -3,6 +3,8 @@ import { LoggedUser } from '../entities';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
+const delay = 2000;
+
 @Injectable()
 export class AuthService {
   private userInfo = <BehaviorSubject<LoggedUser>> new BehaviorSubject(null);
@@ -10,10 +12,12 @@ export class AuthService {
   constructor(private http: Http) {}
 
   public login() {
-    this.userInfo.next({
-      id: 1,
-      userName: 'Vladimir'
-    });
+    setTimeout(() => {
+      this.userInfo.next({
+        id: 1,
+        userName: 'Vladimir'
+      });
+    }, delay);
   }
 
   public logout() {

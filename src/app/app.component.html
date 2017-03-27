@@ -1,0 +1,5 @@
+<main-header [pageName]="pageName" (onPageChange)="goToPage($event)"></main-header>
+<course-list *ngIf="pageName === 'course-list'"></course-list>
+<login *ngIf="pageName === 'login'"></login>
+<spinner></spinner>
+<main-footer></main-footer>

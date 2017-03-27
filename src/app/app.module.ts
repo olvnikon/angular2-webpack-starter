@@ -6,10 +6,7 @@ import {
   CourseListModule,
   LoginModule,
 } from './pages';
-import {
-  FooterModule,
-  HeaderModule,
-} from './core/components';
+import { CoreModule } from './core/components/core.module';
 import {
   AuthService,
   CourseService,
@@ -22,8 +19,7 @@ import { HttpModule } from '@angular/http';
     CourseDetailsModule,
     CourseListModule,
     LoginModule,
-    FooterModule,
-    HeaderModule,
+    CoreModule,
     HttpModule,
   ],
   bootstrap: [

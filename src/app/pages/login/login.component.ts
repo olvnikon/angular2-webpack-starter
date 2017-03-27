@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services';
+import { SpinnerService } from '../../core/components/spinner';
 import template from './login.component.html';
 
 @Component({
@@ -8,11 +9,29 @@ import template from './login.component.html';
   styles: [require('./login.component.scss')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
-  constructor(private authService: AuthService) {}
+export class LoginComponent implements OnInit {
+  public isFormDisabled: boolean = false;
+
+  constructor(private authService: AuthService,
+              private spinnerService: SpinnerService,
+              private ref: ChangeDetectorRef
+  ) {
+  }
+
+  public ngOnInit() {
+    this.authService
+      .getUserInfo()
+      .subscribe(info => {
+        this.isFormDisabled = false;
+        this.ref.markForCheck();
+        this.spinnerService.stopLoading();
+      });
+  }
 
   public login(e) {
     e.preventDefault();
+    this.spinnerService.runLoading();
+    this.isFormDisabled = true;
     this.authService.login();
   }
 }

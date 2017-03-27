@@ -41,6 +41,7 @@ let courses = [
   }
 ];
 let lastInsertId = 3;
+const delay = 2000;
 
 @Injectable()
 export class CourseService {
@@ -77,6 +78,6 @@ export class CourseService {
   }
 
   private updateCourses() {
-    this.courses.next([...courses]);
+    setTimeout(() => this.courses.next([...courses]), delay);
   }
 }

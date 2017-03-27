@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import template from './app.component.html';
 
 @Component({
+  template,
   encapsulation: ViewEncapsulation.None,
   selector: 'app',
   styleUrls: [
@@ -8,12 +10,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
     '../../node_modules/bootstrap/dist/css/bootstrap.min.css',
     '../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
   ],
-  template: `
-    <main-header [pageName]="pageName" (onPageChange)="goToPage($event)"></main-header>
-    <course-list *ngIf="pageName === 'course-list'"></course-list>
-    <login *ngIf="pageName === 'login'"></login>
-    <main-footer></main-footer>
-    `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
