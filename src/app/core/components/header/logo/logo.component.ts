@@ -10,7 +10,7 @@ import template from './logo.component.html';
 export class LogoComponent {
   @Output() private onClick = new EventEmitter();
 
-  public handleClick(e) {
+  public handleClick(e): void {
     e.preventDefault();
     this.onClick.emit();
   }

@@ -1,45 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../../core/entities';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { coursesMock } from '../mocks';
 
-let courses = [
-  {
-    id: 1,
-    name: 'Video course 1',
-    date: new Date(),
-    duration: '1h 28m',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-         officia deserunt mollit anim id est laborum.`
-  },
-  {
-    id: 2,
-    name: 'Video course 2',
-    date: new Date(),
-    duration: '15m',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-         officia deserunt mollit anim id est laborum.`
-  },
-  {
-    id: 3,
-    name: 'Video course 3',
-    date: new Date(),
-    duration: '2h 15m',
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-         officia deserunt mollit anim id est laborum.`
-  }
-];
 let lastInsertId = 3;
 const delay = 1000;
 
@@ -52,7 +15,9 @@ export class CourseService {
   }
 
   public loadAll(): void {
-    setTimeout(() => this.courses.next([...courses]), delay);
+    this.timeout(() => {
+      this.courses.next([...coursesMock]);
+    });
   }
 
   public getById(id: number): Observable<Course> {
@@ -62,18 +27,33 @@ export class CourseService {
   }
 
   public create(course: Course): void {
-    course.id = lastInsertId++;
-    courses = [...courses, course];
-    this.loadAll();
+    this.timeout(() => {
+      course.id = ++lastInsertId;
+      this.courses.next([...this.courses.getValue(), course]);
+    });
   }
 
   public update(course: Course): void {
-    courses = courses.map((c) => (c.id === course.id ? { ...course } : c));
-    this.loadAll();
+    this.timeout(() => {
+      this.courses.next(
+        this.courses
+          .getValue()
+          .map((c) => (c.id === course.id ? { ...course } : c))
+      );
+    });
   }
 
   public remove(course: Course): void {
-    courses = courses.filter(c => (c.id !== course.id));
-    this.loadAll();
+    this.timeout(() => {
+      this.courses.next(
+        this.courses
+          .getValue()
+          .filter(c => (c.id !== course.id))
+      );
+    });
+  }
+
+  private timeout(callback): void {
+    setTimeout(() => callback(), delay);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoggedUser } from '../entities';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
+import { loggedUser } from '../mocks';
 
 const delay = 2000;
 
@@ -11,16 +12,11 @@ export class AuthService {
 
   constructor(private http: Http) {}
 
-  public login() {
-    setTimeout(() => {
-      this.userInfo.next({
-        id: 1,
-        userName: 'Vladimir'
-      });
-    }, delay);
+  public login(): void {
+    setTimeout(() => this.userInfo.next(loggedUser), delay);
   }
 
-  public logout() {
+  public logout(): void {
     this.userInfo.next(null);
   }
 
@@ -28,8 +24,8 @@ export class AuthService {
     return !!this.userInfo.getValue();
   }
 
-  public getUserInfo(): Observable<LoggedUser> {
-    return this.userInfo.asObservable();
+  public get userInfoObservable(): Observable<LoggedUser> {
+    return this.userInfo;
   }
 
   public login_normal(userName: string, password: string) {

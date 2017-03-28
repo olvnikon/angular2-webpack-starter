@@ -9,11 +9,11 @@ export class SpinnerService {
     return this.visibility.asObservable();
   }
 
-  public runLoading() {
+  public runLoading(): void {
     this.visibility.next(true);
   }
 
-  public stopLoading() {
+  public stopLoading(): void {
     this.visibility.next(false);
   }
 }

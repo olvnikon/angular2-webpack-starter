@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     let startTime = new Date();
     this.ngZone.onUnstable.subscribe(() => (startTime = new Date()));
     this.ngZone.onStable.subscribe(() => {
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public goToPage(e) {
+  public goToPage(e): void {
     this.pageName = e.toPage;
   }
 }

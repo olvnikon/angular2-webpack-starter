@@ -13,13 +13,14 @@ export class CourseComponent {
   @Output() public deleteCourse = new EventEmitter();
   @Output() public editCourse = new EventEmitter();
 
-  public onDeleteCourse() {
+  public onDeleteCourse(): void {
+    // ToDo: implement normal modal window
     if (confirm('Do you really want to delete this course?')) {
       this.deleteCourse.emit({ course: this.course });
     }
   }
 
-  public onEditCourse() {
+  public onEditCourse(): void {
     this.editCourse.emit({ course: this.course });
   }
 }

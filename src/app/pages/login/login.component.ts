@@ -18,17 +18,17 @@ export class LoginComponent implements OnInit {
   ) {
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.authService
-      .getUserInfo()
-      .subscribe(info => {
+      .userInfoObservable
+      .subscribe(loggedUser => {
         this.isFormDisabled = false;
         this.ref.markForCheck();
         this.spinnerService.stopLoading();
       });
   }
 
-  public login(e) {
+  public login(e): void {
     e.preventDefault();
     this.spinnerService.runLoading();
     this.isFormDisabled = true;

@@ -11,11 +11,11 @@ export class HeaderComponent {
   @Input() private pageName: string;
   @Output() private onPageChange = new EventEmitter();
 
-  public goToLoginPage() {
+  public goToLoginPage(): void {
     this.onPageChange.emit({ toPage: 'login' });
   }
 
-  public goToHomePage() {
+  public goToHomePage(): void {
     this.onPageChange.emit({ toPage: 'course-list' });
   }
 }
