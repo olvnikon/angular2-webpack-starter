@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, Component, NgZone, OnInit,
+  Component, NgZone, OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import template from './app.component.html';
