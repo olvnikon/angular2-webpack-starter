@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[courseFreshness]'
@@ -7,7 +7,7 @@ export class CourseFreshnessDirective implements OnInit {
   @Input() public courseFreshness: Date;
   private freshnessDaysPeriod = 14;
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, private ren: Renderer2) {
 
   }
 
@@ -21,9 +21,9 @@ export class CourseFreshnessDirective implements OnInit {
     const curDateInMS = new Date().getTime();
 
     if (courseDateInMS > curDateInMS) {
-      this.el.nativeElement.classList.add('course_upcoming');
+      this.ren.addClass(this.el.nativeElement, 'course_upcoming');
     } else if (courseDateInMS + freshnessPeriodInMS > curDateInMS) {
-      this.el.nativeElement.classList.add('course_fresh');
+      this.ren.addClass(this.el.nativeElement, 'course_fresh');
     }
   }
 }
