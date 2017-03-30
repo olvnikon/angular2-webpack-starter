@@ -6,7 +6,10 @@ import { CourseComponent } from './course';
 import { CoursesFilterComponent } from './courses-filter';
 import { CourseFreshnessDirective } from './directives';
 import { NoContentComponent } from './no-content';
-import { DurationPipe } from './pipes';
+import {
+  DurationPipe,
+  DateOrderPipe,
+} from './pipes';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import { DurationPipe } from './pipes';
     CourseFreshnessDirective,
     NoContentComponent,
     DurationPipe,
+    DateOrderPipe,
   ],
   exports: [
     CourseListComponent,
