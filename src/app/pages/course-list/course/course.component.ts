@@ -24,8 +24,17 @@ export class CourseComponent {
     this.editCourse.emit({ course: this.course });
   }
 
-  public getPopularityClass() {
+  public get popularityClass() {
     return this.course.votes < 5 ?
       'course__quite-popular' : 'course__popular';
+  }
+
+  public get courseClass() {
+    return this.isPopular() ?
+      'course_top-rated' : '';
+  }
+
+  public isPopular() {
+    return this.course.votes >= 3;
   }
 }

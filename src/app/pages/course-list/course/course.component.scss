@@ -31,10 +31,17 @@
   }
 
   &_fresh {
-    border-color: green;
+    border-color: #419641;
   }
 
   &_upcoming {
-    border-color: blue;
+    border-color: #265a88;
+  }
+
+  &_top-rated {
+    background-image: -webkit-linear-gradient(45deg,#fcf8e3,#fcf8e3 25%,#faf3e0 25%,#faf3e0 50%,#fcf8e3 50%,#fcf8e3 75%,#faf3e0 75%,#faf3e0);
+    background-image: linear-gradient(45deg,#fcf8e3,#fcf8e3 25%,#faf3e0 25%,#faf3e0 50%,#fcf8e3 50%,#fcf8e3 75%,#faf3e0 75%,#faf3e0);
+    background-size: 5px 5px;
+    background-color: #fcf8e3;
   }
 }
