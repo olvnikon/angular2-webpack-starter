@@ -22,12 +22,12 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    let startTime = Date.now();
+    let startTime = performance.now();
     this.ngZone.onUnstable.subscribe(() => {
-      startTime = Date.now();
+      startTime = performance.now();
     });
     this.ngZone.onStable.subscribe(() => {
-      console.log(`${Date.now() - startTime} ms`);
+      console.log(`${performance.now() - startTime} ms`);
     });
   }
 

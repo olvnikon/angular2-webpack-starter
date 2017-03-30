@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { CourseListComponent } from './course-list.component';
 import { CourseComponent } from './course';
 import { CoursesFilterComponent } from './courses-filter';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { CourseFreshnessDirective } from './directives';
 
 @NgModule({
   declarations: [
     CourseListComponent,
     CourseComponent,
     CoursesFilterComponent,
+    CourseFreshnessDirective,
   ],
   exports: [
     CourseListComponent,

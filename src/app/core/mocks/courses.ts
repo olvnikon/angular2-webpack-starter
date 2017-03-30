@@ -16,7 +16,7 @@ export const coursesMock: Course[] = [
   {
     id: 2,
     name: 'Video course 2',
-    date: new Date(),
+    date: new Date('03-30-2016'),
     duration: '15m',
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -28,7 +28,7 @@ export const coursesMock: Course[] = [
   {
     id: 3,
     name: 'Video course 3',
-    date: new Date(),
+    date: new Date('03-30-2026'),
     duration: '2h 15m',
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

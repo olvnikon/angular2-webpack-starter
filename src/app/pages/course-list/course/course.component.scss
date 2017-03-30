@@ -21,4 +21,12 @@
     overflow: hidden;
     width: auto;
   }
+
+  &_fresh {
+    border-color: green;
+  }
+
+  &_upcoming {
+    border-color: blue;
+  }
 }

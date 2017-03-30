@@ -1,4 +1,4 @@
-<div class="panel panel-default course">
+<div class="panel panel-default course" [courseFreshness]="course.date">
     <div class="text-right course__controls">
         <button (click)="onEditCourse()" type="button" class="btn btn-default">Edit course</button>
         <button (click)="onDeleteCourse()" type="button" class="btn btn-danger">Delete</button>
