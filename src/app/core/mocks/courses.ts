@@ -3,7 +3,7 @@ import { Course } from '../entities';
 export const coursesMock: Course[] = [
   {
     id: 1,
-    name: 'Video course 1',
+    name: 'Mathematics course 1',
     date: new Date(),
     duration: 88,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -16,7 +16,7 @@ export const coursesMock: Course[] = [
   },
   {
     id: 2,
-    name: 'Video course 2',
+    name: 'Biological course 2',
     date: new Date('03-30-2016'),
     duration: 15,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -29,7 +29,7 @@ export const coursesMock: Course[] = [
   },
   {
     id: 3,
-    name: 'Video course 3',
+    name: 'Funny course 3',
     date: new Date('03-30-2026'),
     duration: 135,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

@@ -13,10 +13,10 @@ import template from './course-list.component.html';
 })
 export class CourseListComponent implements OnInit {
   public courses: Course[];
+  private allCourses: Course[];
 
   constructor(private courseService: CourseService,
-              private spinnerService: SpinnerService
-  ) {
+              private spinnerService: SpinnerService) {
   }
 
   public ngOnInit(): void {
@@ -24,6 +24,7 @@ export class CourseListComponent implements OnInit {
       .coursesObservable
       .subscribe(courses => {
         this.courses = courses;
+        this.allCourses = courses;
         this.spinnerService.stopLoading();
       });
 
@@ -32,7 +33,9 @@ export class CourseListComponent implements OnInit {
   }
 
   public findCourses(filter: { filterString: string }): void {
-    console.log(filter.filterString);
+    this.courses = this.allCourses.filter(course => (
+      course.name.toLocaleLowerCase().indexOf(filter.filterString.toLocaleLowerCase()) !== -1
+    ));
   }
 
   public createCourse(course: Course): void {

@@ -13,6 +13,19 @@
         <div class="form-group">
             <button (click)="find()" type="submit" class="btn btn-primary">Find</button>
         </div>
+        <div class="form-group courses-filter__sort">
+            <p class="pull-left courses-filter__sort-by-caption">Sort:</p>
+            <ul class="pull-right nav nav-pills">
+                <li (click)="sortBy = 'date'"
+                    class="courses-filter__sort-by"
+                    [class.active]="sortBy === 'date'"
+                ><a href="#">By Date</a></li>
+                <li (click)="sortBy = 'name'"
+                    class="courses-filter__sort-by"
+                    [class.active]="sortBy === 'name'"
+                ><a href="#">By Name</a></li>
+            </ul>
+        </div>
         <div class="form-group pull-right">
             <button type="button" (click)="createCourse()" class="btn btn-success">
                 <span class="glyphicon glyphicon-plus"></span>

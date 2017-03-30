@@ -10,6 +10,7 @@ import template from './courses-filter.component.html';
 })
 export class CoursesFilterComponent {
   public filterString: string;
+  public sortBy: string = 'date';
   @Output() private filter = new EventEmitter();
   @Output() private create = new EventEmitter();
 
