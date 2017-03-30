@@ -11,7 +11,8 @@ export const coursesMock: Course[] = [
          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-         officia deserunt mollit anim id est laborum.`
+         officia deserunt mollit anim id est laborum.`,
+    votes: 5
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ export const coursesMock: Course[] = [
          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-         officia deserunt mollit anim id est laborum.`
+         officia deserunt mollit anim id est laborum.`,
+    votes: 1
   },
   {
     id: 3,
@@ -35,6 +37,7 @@ export const coursesMock: Course[] = [
          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-         officia deserunt mollit anim id est laborum.`
+         officia deserunt mollit anim id est laborum.`,
+    votes: 3
   }
 ];

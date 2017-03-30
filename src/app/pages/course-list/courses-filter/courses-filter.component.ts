@@ -25,7 +25,8 @@ export class CoursesFilterComponent {
       name: 'Mock course',
       description: 'Mock description',
       duration: '1h',
-      date: new Date()
+      date: new Date(),
+      votes: 0
     } as Course);
   }
 }

@@ -4,4 +4,5 @@ export interface Course {
   duration: string;
   date: Date;
   description: string;
+  votes: number;
 }

@@ -23,4 +23,9 @@ export class CourseComponent {
   public onEditCourse(): void {
     this.editCourse.emit({ course: this.course });
   }
+
+  public getPopularityClass() {
+    return this.course.votes < 5 ?
+      'course__quite-popular' : 'course__popular';
+  }
 }

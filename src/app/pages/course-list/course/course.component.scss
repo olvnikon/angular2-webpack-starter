@@ -17,6 +17,14 @@
     }
   }
 
+  &__quite-popular {
+    color: orange;
+  }
+
+  &__popular {
+    color: red;
+  }
+
   &__info {
     overflow: hidden;
     width: auto;

@@ -9,6 +9,10 @@
         </div>
         <div class="col-xs-6">
             {{course.duration}}
+            <span *ngIf="course.votes >= 3"
+                  class="glyphicon glyphicon-fire"
+                  [ngClass]="getPopularityClass()"
+                  aria-hidden="true"></span>
         </div>
         <div class="col-xs-3 text-right">
             {{course.date | date}}
