@@ -9,6 +9,7 @@ import { NoContentComponent } from './no-content';
 import {
   DurationPipe,
   DateOrderPipe,
+  SearchStringPipe,
 } from './pipes';
 
 @NgModule({
@@ -20,6 +21,7 @@ import {
     NoContentComponent,
     DurationPipe,
     DateOrderPipe,
+    SearchStringPipe,
   ],
   exports: [
     CourseListComponent,
@@ -28,6 +30,9 @@ import {
     FormsModule,
     BrowserModule,
   ],
+  providers: [
+    SearchStringPipe,
+  ]
 })
 export class CourseListModule {
 

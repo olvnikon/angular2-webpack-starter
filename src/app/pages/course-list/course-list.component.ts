@@ -4,6 +4,7 @@ import {
 import { Course } from '../../core/entities';
 import { CourseService } from '../../core/services';
 import { SpinnerService } from '../../core/components/spinner';
+import { SearchStringPipe } from './pipes';
 import template from './course-list.component.html';
 
 @Component({
@@ -16,7 +17,9 @@ export class CourseListComponent implements OnInit {
   private allCourses: Course[];
 
   constructor(private courseService: CourseService,
-              private spinnerService: SpinnerService) {
+              private spinnerService: SpinnerService,
+              private searchString: SearchStringPipe
+  ) {
   }
 
   public ngOnInit(): void {
@@ -33,9 +36,7 @@ export class CourseListComponent implements OnInit {
   }
 
   public findCourses(filter: { filterString: string }): void {
-    this.courses = this.allCourses.filter(course => (
-      course.name.toLocaleLowerCase().indexOf(filter.filterString.toLocaleLowerCase()) !== -1
-    ));
+    this.courses = this.searchString.transform(this.allCourses, filter.filterString);
   }
 
   public createCourse(course: Course): void {
