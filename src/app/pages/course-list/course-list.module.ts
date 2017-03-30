@@ -5,6 +5,7 @@ import { CourseListComponent } from './course-list.component';
 import { CourseComponent } from './course';
 import { CoursesFilterComponent } from './courses-filter';
 import { CourseFreshnessDirective } from './directives';
+import { NoContentComponent } from './no-content';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { CourseFreshnessDirective } from './directives';
     CourseComponent,
     CoursesFilterComponent,
     CourseFreshnessDirective,
+    NoContentComponent,
   ],
   exports: [
     CourseListComponent,
