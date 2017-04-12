@@ -21,13 +21,6 @@ export class CoursesFilterComponent {
   }
 
   public createCourse(): void {
-    this.create.emit({
-      id: null,
-      name: 'Mock course',
-      description: 'Mock description',
-      duration: 61,
-      date: new Date(),
-      votes: 0
-    } as Course);
+    this.create.emit();
   }
 }

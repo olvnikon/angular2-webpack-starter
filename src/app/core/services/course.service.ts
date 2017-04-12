@@ -3,15 +3,21 @@ import { Course } from '../entities';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { coursesMock } from '../mocks';
 
-let lastInsertId = 3;
+let lastInsertId = 4;
 const delay = 1000;
 
 @Injectable()
 export class CourseService {
+  private outdatedPeriod = 14 * 24 * 60 * 60 * 1000;
   private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
 
   public get coursesObservable(): Observable<Course[]> {
-    return this.courses;
+    return this.courses
+      .asObservable()
+      .map((courses: Course[]): Course[] => courses.filter(course => (
+          course.date.getTime() + this.outdatedPeriod >= new Date().getTime()
+        ))
+      );
   }
 
   public loadAll(): void {

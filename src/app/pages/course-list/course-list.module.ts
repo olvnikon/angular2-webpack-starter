@@ -7,10 +7,10 @@ import { CoursesFilterComponent } from './courses-filter';
 import { CourseFreshnessDirective } from './directives';
 import { NoContentComponent } from './no-content';
 import {
-  DurationPipe,
   DateOrderPipe,
   SearchStringPipe,
 } from './pipes';
+import { PipesModule } from '../../core/pipes';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import {
     CoursesFilterComponent,
     CourseFreshnessDirective,
     NoContentComponent,
-    DurationPipe,
     DateOrderPipe,
     SearchStringPipe,
   ],
@@ -29,6 +28,7 @@ import {
   imports: [
     FormsModule,
     BrowserModule,
+    PipesModule,
   ],
   providers: [
     SearchStringPipe,

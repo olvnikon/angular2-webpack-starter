@@ -5,6 +5,7 @@ import {
   CourseDetailsModule,
   CourseListModule,
   LoginModule,
+  EditCourseModule,
 } from './pages';
 import { CoreModule } from './core/components/core.module';
 import {
@@ -21,6 +22,7 @@ import { HttpModule } from '@angular/http';
     LoginModule,
     CoreModule,
     HttpModule,
+    EditCourseModule,
   ],
   bootstrap: [
     AppComponent,
