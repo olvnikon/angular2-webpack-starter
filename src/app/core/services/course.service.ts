@@ -1,65 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../entities';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { coursesMock } from '../mocks';
-
-let lastInsertId = 4;
-const delay = 1000;
+import { Observable } from 'rxjs';
+import { Http, Response } from '@angular/http';
 
 @Injectable()
 export class CourseService {
   private outdatedPeriod = 14 * 24 * 60 * 60 * 1000;
-  private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
 
-  public get coursesObservable(): Observable<Course[]> {
-    return this.courses
-      .asObservable()
-      .map((courses: Course[]): Course[] => courses.filter(course => (
-          course.date.getTime() + this.outdatedPeriod >= new Date().getTime()
-        ))
-      );
+  public constructor(private http: Http) {}
+
+  public getAll(): Observable<Course[]> {
+    return this.http.get('http://localhost:2403/courses')
+      .map((response: Response): Course[] => (
+        response.status === 200 ? response.json() : []
+    ));
   }
 
-  public loadAll(): void {
-    this.timeout(() => {
-      this.courses.next([...coursesMock]);
-    });
-  }
-
-  public getById(id: number): Observable<Course> {
-    return this
-      .coursesObservable
-      .map(allCourses => allCourses.find(course => course.id === id));
+  public getById(id: number) {
+    return this.http.get('http://localhost:2403/courses')
+      .map((response: Response): Course[] => (
+        response.status === 200 ? response.json() : []
+      ));
   }
 
   public create(course: Course): void {
-    this.timeout(() => {
-      course.id = ++lastInsertId;
-      this.courses.next([...this.courses.getValue(), course]);
-    });
+    //
   }
 
   public update(course: Course): void {
-    this.timeout(() => {
-      this.courses.next(
-        this.courses
-          .getValue()
-          .map((c) => (c.id === course.id ? { ...course } : c))
-      );
-    });
+    //
   }
 
   public remove(course: Course): void {
-    this.timeout(() => {
-      this.courses.next(
-        this.courses
-          .getValue()
-          .filter(c => (c.id !== course.id))
-      );
-    });
-  }
-
-  private timeout(callback): void {
-    setTimeout(() => callback(), delay);
+    //
   }
 }

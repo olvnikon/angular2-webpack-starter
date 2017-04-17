@@ -11,6 +11,7 @@
   "homepage": "https://github.com/angularclass/angular2-webpack-starter",
   "license": "MIT",
   "scripts": {
+    "api:start": "cd ./courses-api && dpd -m \"C:\\Program Files\\MongoDB\\Server\\3.4\\bin\\mongod.exe\" -d",
     "build:aot:prod": "npm run clean:dist && npm run clean:aot && webpack --config config/webpack.prod.js  --progress --profile --bail",
     "build:aot": "npm run build:aot:prod",
     "build:dev": "npm run clean:dist && webpack --config config/webpack.dev.js --progress --profile",
@@ -110,6 +111,7 @@
     "codelyzer": "~2.0.0-beta.4",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.27.3",
+    "deployd": "^0.8.9",
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "~2.0.0-rc.3",

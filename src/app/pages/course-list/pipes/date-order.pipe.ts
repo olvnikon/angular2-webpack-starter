@@ -7,6 +7,7 @@ import { Course } from '../../../core/entities';
 })
 export class DateOrderPipe implements PipeTransform {
   public transform(courses: Course[]): Course[] {
-    return courses.sort((cur, next) => (cur.date.getTime() - next.date.getTime()));
+    return !courses || courses.length === 0 ?
+      [] : courses.sort((cur, next) => (cur.date.getTime() - next.date.getTime()));
   }
 }

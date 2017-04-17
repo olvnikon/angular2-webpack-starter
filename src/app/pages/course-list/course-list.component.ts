@@ -1,5 +1,5 @@
 import {
-  Component, OnDestroy, OnInit, Output, EventEmitter
+  Component, OnInit, Output, EventEmitter
 } from '@angular/core';
 import { Course } from '../../core/entities';
 import { CourseService } from '../../core/services';
@@ -12,11 +12,9 @@ import template from './course-list.component.html';
   selector: 'course-list',
   styles: [require('./course-list.component.scss')],
 })
-export class CourseListComponent implements OnInit, OnDestroy {
+export class CourseListComponent implements OnInit {
   public courses: Course[];
-
   private allCourses: Course[];
-  private subscription;
   @Output() private onPageChange = new EventEmitter();
 
   constructor(private courseService: CourseService,
@@ -25,16 +23,12 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.subscription = this.courseService
-      .coursesObservable
-      .subscribe(courses => {
-        this.courses = courses;
-        this.allCourses = courses;
-        this.spinnerService.stopLoading();
-      });
-
     this.spinnerService.runLoading();
-    this.courseService.loadAll();
+    this.courseService.getAll().subscribe(courses => {
+      this.courses = courses;
+      this.allCourses = courses;
+      this.spinnerService.stopLoading();
+    });
   }
 
   public findCourses(filter: { filterString: string }): void {
@@ -46,16 +40,11 @@ export class CourseListComponent implements OnInit, OnDestroy {
   }
 
   public editCourse(course: Course): void {
-    this.courseService.getById(course.id)
-      .subscribe(foundCourse => console.log(foundCourse));
+    //
   }
 
   public deleteCourse(course: Course): void {
     this.spinnerService.runLoading();
     this.courseService.remove(course);
-  }
-
-  public ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

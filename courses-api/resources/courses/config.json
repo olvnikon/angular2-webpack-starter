@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 0
+		},
+		"duration": {
+			"name": "duration",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "duration",
+			"order": 1
+		},
+		"date": {
+			"name": "date",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "date",
+			"order": 2
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 3
+		},
+		"votes": {
+			"name": "votes",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "votes",
+			"order": 4
+		}
+	}
+}
