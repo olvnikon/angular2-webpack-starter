@@ -2,6 +2,11 @@
     <courses-filter (create)="createCourse($event)"
                     (filter)="findCourses($event)"
     ></courses-filter>
+    <courses-pagination [totalCount]="totalCount"
+                        [itemsPerPage]="itemsPerPage"
+                        [activePage]="activePage"
+                        (changePage)="changePage($event)"
+    ></courses-pagination>
     <no-courses *ngIf="courses?.length === 0"></no-courses>
     <course *ngFor="let course of courses | orderByDate; trackBy: course?.id"
             [course]="course"

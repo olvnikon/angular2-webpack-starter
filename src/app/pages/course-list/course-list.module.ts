@@ -6,6 +6,7 @@ import { CourseComponent } from './course';
 import { CoursesFilterComponent } from './courses-filter';
 import { CourseFreshnessDirective } from './directives';
 import { NoContentComponent } from './no-content';
+import { PaginationComponent } from './pagination';
 import {
   DateOrderPipe,
   SearchStringPipe,
@@ -21,6 +22,7 @@ import { PipesModule } from '../../core/pipes';
     NoContentComponent,
     DateOrderPipe,
     SearchStringPipe,
+    PaginationComponent,
   ],
   exports: [
     CourseListComponent,

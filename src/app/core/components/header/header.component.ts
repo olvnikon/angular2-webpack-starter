@@ -8,7 +8,7 @@ import template from './header.component.html';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  @Input() private pageName: string;
+  @Input() public pageName: string;
   @Output() private onPageChange = new EventEmitter();
 
   public goToLoginPage(): void {

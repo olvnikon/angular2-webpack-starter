@@ -1,0 +1,18 @@
+<nav class="pull-right">
+    <ul class="pagination">
+        <li *ngIf="activePage > 1">
+            <a href="#" aria-label="Previous" (click)="toPreviousPage($event)">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let page of pages; let i = index;" [ngClass]="{active: i + 1 === activePage}">
+            <a href="#" (click)="onChangePage($event, i + 1)">{{i + 1}}</a>
+        </li>
+
+        <li *ngIf="activePage < pages.length">
+            <a href="#" aria-label="Next" (click)="toNextPage($event)">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
