@@ -13,11 +13,14 @@ export class CourseService {
   public constructor(private http: Http) {
   }
 
-  public getAll(page: number = 1, itemsPerPage: number = 3): Observable<Course[]> {
+  public getAll(page: number = 1,
+                itemsPerPage: number = 3,
+                filterString: string = ''): Observable<Course[]> {
     const query = {
       $limit: itemsPerPage,
       $skip: (page - 1) * itemsPerPage,
-      $sort: { date: 1 }
+      $sort: { date: 1 },
+      name: { $regex: filterString, $options: 'i' },
     };
     const request = new Request(this.getRequestOptions(query));
 
@@ -30,8 +33,11 @@ export class CourseService {
       );
   }
 
-  public count(): Observable<number> {
-    const request = new Request(this.getRequestOptions());
+  public count(filterString: string = ''): Observable<number> {
+    const query = {
+      name: { $regex: filterString, $options: 'i' },
+    };
+    const request = new Request(this.getRequestOptions(query));
 
     return this.http.request(request)
       .map((response: Response) => this.convertToJson(response))

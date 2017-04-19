@@ -1,4 +1,4 @@
-<nav class="pull-right">
+<nav class="pull-right" *ngIf="pages && pages.length > 1">
     <ul class="pagination">
         <li *ngIf="activePage > 1">
             <a href="#" aria-label="Previous" (click)="toPreviousPage($event)">

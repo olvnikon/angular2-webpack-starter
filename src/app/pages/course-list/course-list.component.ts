@@ -41,7 +41,18 @@ export class CourseListComponent implements OnInit {
   }
 
   public findCourses(filter: { filterString: string }): void {
-    this.courses = this.searchString.transform(this.courses, filter.filterString);
+    this.courseService
+      .getAll(1, this.itemsPerPage, filter.filterString)
+      .subscribe(courses => {
+        this.courses = courses;
+        this.spinnerService.stopLoading();
+      });
+
+    this.courseService
+      .count(filter.filterString)
+      .subscribe(count => {
+        this.totalCount = count;
+      });
   }
 
   public createCourse(): void {
