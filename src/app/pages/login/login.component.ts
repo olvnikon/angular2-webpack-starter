@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
     e.preventDefault();
     this.spinnerService.runLoading();
     this.isFormDisabled = true;
-    this.authService.login();
+    this.authService
+      .login('nikon', '12345')
+      .subscribe();
   }
 }

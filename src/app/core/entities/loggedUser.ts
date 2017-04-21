@@ -1,4 +1,5 @@
 export interface LoggedUser {
-  id: number;
+  id: string;
   userName: string;
+  token: string;
 }

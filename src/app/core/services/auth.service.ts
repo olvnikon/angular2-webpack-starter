@@ -1,47 +1,41 @@
 import { Injectable } from '@angular/core';
-import { LoggedUser } from '../entities';
+import { LoggedUser, LoginResponse } from '../entities';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
-import { loggedUser } from '../mocks';
-
-const delay = 2000;
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
-  private userInfo = <BehaviorSubject<LoggedUser>> new BehaviorSubject(null);
+  public userInfo: BehaviorSubject<LoggedUser> = new BehaviorSubject(null);
+  private url: string = 'http://localhost:2403/users';
 
-  constructor(private http: Http) {}
-
-  public login(): void {
-    setTimeout(() => this.userInfo.next(loggedUser), delay);
-  }
-
-  public logout(): void {
-    this.userInfo.next(null);
+  constructor(private http: Http) {
   }
 
   public isAuthenticated(): boolean {
-    return !!this.userInfo.getValue();
+    return true;
   }
 
   public get userInfoObservable(): Observable<LoggedUser> {
-    return this.userInfo;
+    return this.userInfo.asObservable();
   }
 
-  public login_normal(userName: string, password: string) {
+  public login(username: string, password: string): Observable<LoggedUser> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
-    const loginInfo = { userName, password };
+    const loginInfo = { username, password };
 
-    return this.http.post('/api/login/', JSON.stringify(loginInfo), options)
-      .do((response: Response) => {
-        if (response) {
-          // this.loggedUser = <LoggedUser> response.json().user;
-        }
+    return this.http.post(`${this.url}/login`, JSON.stringify(loginInfo), options)
+      .map((response: Response): LoginResponse => response.status === 200 ? response.json() : null)
+      .map((response: LoginResponse): LoggedUser => (
+        response ?
+          { id: response.uid, userName: username, token: response.id } : null
+      ))
+      .do((user: LoggedUser) => {
+        this.userInfo.next(user);
       });
   }
 
-  public logout_normal() {
+  public logout() {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
