@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return true;
+    return !!this.userInfo.getValue();
   }
 
   public get userInfoObservable(): Observable<LoggedUser> {
