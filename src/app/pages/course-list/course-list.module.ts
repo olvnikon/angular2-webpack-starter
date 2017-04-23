@@ -9,7 +9,6 @@ import { NoContentComponent } from './no-content';
 import { PaginationComponent } from './pagination';
 import {
   DateOrderPipe,
-  SearchStringPipe,
 } from './pipes';
 import { PipesModule } from '../../core/pipes';
 
@@ -21,7 +20,6 @@ import { PipesModule } from '../../core/pipes';
     CourseFreshnessDirective,
     NoContentComponent,
     DateOrderPipe,
-    SearchStringPipe,
     PaginationComponent,
   ],
   exports: [
@@ -33,7 +31,6 @@ import { PipesModule } from '../../core/pipes';
     PipesModule,
   ],
   providers: [
-    SearchStringPipe,
   ]
 })
 export class CourseListModule {

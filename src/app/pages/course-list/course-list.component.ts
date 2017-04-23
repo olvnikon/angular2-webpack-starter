@@ -4,8 +4,8 @@ import {
 import { Course } from '../../core/entities';
 import { CourseService } from '../../core/services';
 import { SpinnerService } from '../../core/components/spinner';
-import { SearchStringPipe } from './pipes';
 import template from './course-list.component.html';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   template,
@@ -18,41 +18,23 @@ export class CourseListComponent implements OnInit {
   public activePage: number = 1;
   public itemsPerPage: number = 3;
   @Output() private onPageChange = new EventEmitter();
+  private coursesSubscription = null;
+  private coursesCountSubscription = null;
 
   constructor(private courseService: CourseService,
-              private spinnerService: SpinnerService,
-              private searchString: SearchStringPipe) {
+              private spinnerService: SpinnerService) {
   }
 
   public ngOnInit(): void {
+    this.courseServiceSubscribe();
     this.spinnerService.runLoading();
-    this.courseService
-      .getAll(1, this.itemsPerPage)
-      .subscribe(courses => {
-        this.courses = courses;
-        this.spinnerService.stopLoading();
-      });
-
-    this.courseService
-      .count()
-      .subscribe(count => {
-        this.totalCount = count;
-      });
+    this.courseService.loadAll(this.activePage, this.itemsPerPage);
+    this.courseService.countAll();
   }
 
   public findCourses(filter: { filterString: string }): void {
-    this.courseService
-      .getAll(1, this.itemsPerPage, filter.filterString)
-      .subscribe(courses => {
-        this.courses = courses;
-        this.spinnerService.stopLoading();
-      });
-
-    this.courseService
-      .count(filter.filterString)
-      .subscribe(count => {
-        this.totalCount = count;
-      });
+    this.courseService.loadAll(1, this.itemsPerPage, filter.filterString);
+    this.courseService.countAll(filter.filterString);
   }
 
   public createCourse(): void {
@@ -69,12 +51,21 @@ export class CourseListComponent implements OnInit {
   }
 
   public changePage(event) {
-    this.courseService
-      .getAll(event.activePage)
+    this.activePage = event.activePage;
+    this.courseService.loadAll(event.activePage);
+  }
+
+  private courseServiceSubscribe() {
+    this.coursesSubscription = this.courseService
+      .coursesObservable
       .subscribe(courses => {
-        this.activePage = event.activePage;
         this.courses = courses;
         this.spinnerService.stopLoading();
+      });
+    this.coursesCountSubscription = this.courseService
+      .coursesCountObservable
+      .subscribe(count => {
+        this.totalCount = count;
       });
   }
 }

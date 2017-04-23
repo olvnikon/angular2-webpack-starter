@@ -39,9 +39,11 @@ export class AuthService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers });
 
-    // this.loggedUser = undefined;
-
-    return this.http.post('/api/logout', JSON.stringify({}), options);
+    return this.http
+      .post(`${this.url}/logout`, JSON.stringify({}), options)
+      .subscribe(() => {
+        this.userInfo.next(null);
+      });
   }
 
   public checkAuthenticationStatus_normal() {
