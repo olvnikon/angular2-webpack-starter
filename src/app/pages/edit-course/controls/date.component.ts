@@ -14,8 +14,9 @@ const CUSTOM_DATE_CONTROL_ACCESSOR = {
           <label for="courseDate" class="col-sm-2 control-label">Date</label>
           <div class="col-sm-10">
               <input type="text"
+                     name="{{nameOption}}"
                      (keyup)="setValue($event)"
-                     [value]="date"
+                     [value]="value"
                      class="form-control"
                      id="courseDate"
                      placeholder="Date"/>
@@ -25,15 +26,17 @@ const CUSTOM_DATE_CONTROL_ACCESSOR = {
   providers: [CUSTOM_DATE_CONTROL_ACCESSOR],
 })
 export class DateControlComponent implements ControlValueAccessor {
-  @Input() public date: string;
-  public onChange = (val) => {};
-  public onTouched = () => {};
+  @Input() public nameOption: string;
+  private date: string;
 
-  public setValue(item) {
-    this.value = item.target.value;
+  public onChange = val => val;
+  public onTouched = () => 1;
+
+  public setValue(event): void {
+    this.value = event.target.value;
   }
 
-  public get value() {
+  public get value(): string {
     return this.date;
   }
 
@@ -42,17 +45,17 @@ export class DateControlComponent implements ControlValueAccessor {
     this.onChange(newValue);
   }
 
-  public writeValue(value: string) {
+  public writeValue(value: string): void {
     if (value !== this.date) {
-      this.date = value;
+      this.value = value;
     }
   }
 
-  public registerOnChange(fn: any) {
+  public registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
-  public registerOnTouched(fn: any) {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 }

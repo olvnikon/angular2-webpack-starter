@@ -16,7 +16,8 @@ const CUSTOM_DURATION_CONTROL_ACCESSOR = {
               <div class="input-group">
                   <input type="text"
                          (keyup)="setValue($event)"
-                         [value]="duration"
+                         [value]="value"
+                         name="{{nameOption}}"
                          class="form-control"
                          id="courseDuration"
                          placeholder="Duration"/>
@@ -28,15 +29,17 @@ const CUSTOM_DURATION_CONTROL_ACCESSOR = {
   providers: [CUSTOM_DURATION_CONTROL_ACCESSOR],
 })
 export class DurationControlComponent implements ControlValueAccessor {
-  @Input() public duration: string;
-  public onChange = (val) => {};
-  public onTouched = () => {};
+  @Input() public nameOption: string;
+  private duration: string;
 
-  public setValue(item) {
-    this.value = item.target.value;
+  public onChange = val => val;
+  public onTouched = () => 1;
+
+  public setValue(event): void {
+    this.value = event.target.value;
   }
 
-  public get value() {
+  public get value(): string {
     return this.duration;
   }
 
@@ -45,17 +48,17 @@ export class DurationControlComponent implements ControlValueAccessor {
     this.onChange(newValue);
   }
 
-  public writeValue(value: string) {
+  public writeValue(value: string): void {
     if (value !== this.duration) {
-      this.duration = value;
+      this.value = value;
     }
   }
 
-  public registerOnChange(fn: any) {
+  public registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
-  public registerOnTouched(fn: any) {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 }
