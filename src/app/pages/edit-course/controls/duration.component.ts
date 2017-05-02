@@ -23,6 +23,7 @@ const CUSTOM_DURATION_CONTROL_ACCESSOR = {
                          placeholder="Duration"/>
                   <span class="input-group-addon">{{value|duration}}</span>
               </div>
+              <ng-content></ng-content>
           </div>
       </div>
   `,

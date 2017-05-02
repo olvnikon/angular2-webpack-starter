@@ -20,6 +20,7 @@ const CUSTOM_DATE_CONTROL_ACCESSOR = {
                      class="form-control"
                      id="courseDate"
                      placeholder="Date"/>
+              <ng-content></ng-content>
           </div>
       </div>
   `,

@@ -1,5 +1,9 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, forwardRef, Input, OnChanges,
+  ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Author } from '../../../core/entities';
 
 declare const $: any;
 
@@ -24,13 +28,14 @@ const CUSTOM_AUTHORS_CONTROL_ACCESSOR = {
                       {{author.name}}
                   </option>
               </select>
+              <ng-content></ng-content>
           </div>
       </div>
   `,
   providers: [CUSTOM_AUTHORS_CONTROL_ACCESSOR],
 })
-export class AuthorsControlComponent implements ControlValueAccessor, AfterViewInit {
-  @Input() public authors: string[];
+export class AuthorsControlComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
+  @Input() public authors: Author[];
   @Input() public nameOption: string[];
   @ViewChild('select') public select: ElementRef;
   private currentValue: string[];
@@ -57,6 +62,14 @@ export class AuthorsControlComponent implements ControlValueAccessor, AfterViewI
 
   public registerOnTouched(fn: any): void {
     this.onTouched = fn;
+  }
+
+  public ngOnChanges() {
+    if (this.authors && this.authors.length > 0) {
+      setTimeout(() => {
+        $(this.select.nativeElement).bootstrapDualListbox('refresh');
+      });
+    }
   }
 
   public ngAfterViewInit() {

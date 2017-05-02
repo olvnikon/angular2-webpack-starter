@@ -40,6 +40,14 @@
 			"required": false,
 			"id": "votes",
 			"order": 4
+		},
+		"authors": {
+			"name": "authors",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "authors",
+			"order": 5
 		}
 	}
 }

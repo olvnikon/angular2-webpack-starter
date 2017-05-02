@@ -6,5 +6,5 @@ export function validateNumbersOnly(control: FormControl): { [key: string]: bool
   }
 
   return Number(control.value).toString() === control.value ?
-    null : { invalidDate: true };
+    null : { numbersOnly: true };
 }

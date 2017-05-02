@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import template from './edit-course.component.html';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { validateDate, validateNumbersOnly } from '../../core/validators';
+import { validateDate, validateNumbersOnly, atLeastOne } from '../../core/validators';
+import { AuthorService, } from '../../core/services';
+import { Author, } from '../../core/entities';
 
 @Component({
   template,
@@ -10,37 +12,31 @@ import { validateDate, validateNumbersOnly } from '../../core/validators';
 })
 export class EditCourseComponent implements OnInit {
   public formGroup: FormGroup;
+  public authors: Author[] = [];
+  private maxTitleLength: number = 50;
+  private maxDescriptionLength: number = 500;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private authorService: AuthorService) {
 
-  }
-
-  public get authors() {
-    return [
-      { name: 'Smith', isSelected: false },
-      { name: 'Johnson', isSelected: false },
-      { name: 'Williams', isSelected: false },
-      { name: 'Miller', isSelected: false },
-      { name: 'Brown', isSelected: false },
-    ];
   }
 
   public ngOnInit(): void {
+    this.authorService
+      .authorsObservable
+      .subscribe((authors: Author[]) => (this.authors = authors));
+    this.authorService.loadAll();
+
     this.formGroup = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(500)]],
+      title: ['', [Validators.required, Validators.maxLength(this.maxTitleLength)]],
+      description: ['', [Validators.required, Validators.maxLength(this.maxDescriptionLength)]],
       date: ['', [Validators.required, validateDate]],
       duration: ['', [Validators.required, validateNumbersOnly]],
-      authors: [[], [Validators.required]],
+      authors: [[], [Validators.required, atLeastOne]],
     });
   }
 
-  public hasErrors(control: FormControl): boolean {
-    return control.dirty && !! control.errors;
-  }
-
   public getErrorClass(control: FormControl): string {
-    return this.hasErrors(control) ?
+    return control.dirty && !!control.errors ?
       'has-error' : '';
   }
 

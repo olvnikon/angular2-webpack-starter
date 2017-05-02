@@ -4,32 +4,70 @@
       <label for="courseTitle" class="col-sm-2 control-label">Title</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="courseTitle" formControlName="title" placeholder="Title"/>
+        <span *ngIf="formGroup.controls.title?.dirty">
+          <span *ngIf="formGroup.controls.title?.errors?.required" class="help-block">
+            Required field cannot be empty!
+          </span>
+          <span *ngIf="formGroup.controls.title?.errors?.maxlength" class="help-block">
+            Max length is {{maxTitleLength}} characters!
+          </span>
+        </span>
       </div>
     </div>
     <div class="form-group" [ngClass]="getErrorClass(formGroup.controls.description)">
       <label for="courseDescription" class="col-sm-2 control-label">Description</label>
       <div class="col-sm-10">
-        <textarea class="form-control" id="courseDescription"
+        <textarea class="form-control" id="courseDescription" rows="5" style="resize:none;"
                   formControlName="description" placeholder="Description">
         </textarea>
+        <span *ngIf="formGroup.controls.description?.dirty">
+          <span *ngIf="formGroup.controls.description?.errors?.required" class="help-block">
+            Required field cannot be empty!
+          </span>
+          <span *ngIf="formGroup.controls.description?.errors?.maxlength" class="help-block">
+            Max length is {{maxDescriptionLength}} characters!
+          </span>
+        </span>
       </div>
     </div>
     <date-control formControlName="date"
                   [ngClass]="getErrorClass(formGroup.controls.date)"
                   [nameOption]="date">
+      <div *ngIf="formGroup.controls.date?.dirty">
+        <span *ngIf="formGroup.controls.date?.errors?.required" class="help-block">
+          Required field cannot be empty!
+        </span>
+        <span *ngIf="formGroup.controls.date?.errors?.invalidDate" class="help-block">
+          Invalid date format! Should be dd/MM/YYYY!
+        </span>
+      </div>
     </date-control>
     <duration-control formControlName="duration"
                       [ngClass]="getErrorClass(formGroup.controls.duration)"
                       [nameOption]="duration">
+      <div *ngIf="formGroup.controls.duration?.dirty">
+        <span *ngIf="formGroup.controls.duration?.errors?.required" class="help-block">
+          Required field cannot be empty!
+        </span>
+        <span *ngIf="formGroup.controls.duration?.errors?.numbersOnly" class="help-block">
+          Only numbers allowed!
+        </span>
+      </div>
     </duration-control>
     <authors-control formControlName="authors"
+                     [ngClass]="getErrorClass(formGroup.controls.authors)"
                      [authors]="authors"
                      [nameOption]="authors">
+      <div *ngIf="formGroup.controls.authors?.dirty">
+        <span *ngIf="formGroup.controls.authors?.errors?.lessThanOne" class="help-block">
+          You should choose at least one of the authors!
+        </span>
+      </div>
     </authors-control>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <!--<button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary">Save</button>-->
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary">Save</button>
+        <!--<button type="submit" class="btn btn-primary">Save</button>-->
         <button type="button" (click)="cancel(formGroup)" class="btn btn-default">Cancel</button>
       </div>
     </div>

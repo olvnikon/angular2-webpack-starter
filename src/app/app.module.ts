@@ -11,6 +11,7 @@ import { CoreModule } from './core/components/core.module';
 import {
   AuthService,
   CourseService,
+  AuthorService,
 } from './core/services';
 import { HttpModule } from '@angular/http';
 
@@ -33,6 +34,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     AuthService,
     CourseService,
+    AuthorService,
   ],
 })
 export class AppModule {
