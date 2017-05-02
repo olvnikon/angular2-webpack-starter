@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { AuthService } from '../../core/services';
 import { SpinnerService } from '../../core/components/spinner';
 import template from './login.component.html';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   template,
@@ -11,10 +12,12 @@ import template from './login.component.html';
 })
 export class LoginComponent implements OnInit {
   public isFormDisabled: boolean = false;
+  public formGroup: FormGroup;
 
   constructor(private authService: AuthService,
               private spinnerService: SpinnerService,
-              private ref: ChangeDetectorRef
+              private ref: ChangeDetectorRef,
+              private formBuilder: FormBuilder
   ) {
   }
 
@@ -26,6 +29,11 @@ export class LoginComponent implements OnInit {
         this.ref.markForCheck();
         this.spinnerService.stopLoading();
       });
+
+    this.formGroup = this.formBuilder.group({
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
   }
 
   public login(e): void {

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../core/services';
 
@@ -8,7 +9,12 @@ import { AuthService } from '../../core/services';
   ],
   exports: [
     LoginComponent,
-  ]
+  ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [],
 })
 export class LoginModule {
   constructor(private authService: AuthService) {
