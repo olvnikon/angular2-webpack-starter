@@ -19,8 +19,6 @@ import '../../node_modules/bootstrap-duallistbox/dist/jquery.bootstrap-duallistb
   ]
 })
 export class AppComponent implements OnInit {
-  public pageName: string = 'course-list';
-
   constructor(private ngZone: NgZone) {
 
   }
@@ -33,9 +31,5 @@ export class AppComponent implements OnInit {
     this.ngZone.onStable.subscribe(() => {
       console.log(`${performance.now() - startTime} ms`);
     });
-  }
-
-  public goToPage(e): void {
-    this.pageName = e.toPage;
   }
 }

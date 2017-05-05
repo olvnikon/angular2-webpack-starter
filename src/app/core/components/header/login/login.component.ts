@@ -1,7 +1,7 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit,
-  Output
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../services';
 import template from './login.component.html';
 
@@ -13,9 +13,10 @@ import template from './login.component.html';
 })
 export class LoginComponent implements OnInit {
   public userName: string;
-  @Output() private onLogin = new EventEmitter();
 
-  constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
+  constructor(private authService: AuthService,
+              private ref: ChangeDetectorRef,
+              private router: Router) {
 
   }
 
@@ -29,13 +30,12 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  public login(e): void {
-    e.preventDefault();
-    this.onLogin.emit();
-  }
-
   public logout(e): void {
     e.preventDefault();
-    this.authService.logout();
+    this.authService
+      .logout()
+      .subscribe(() => {
+        this.router.navigate(['/login']);
+      });
   }
 }

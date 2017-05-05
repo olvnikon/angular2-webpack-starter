@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CourseListComponent } from './course-list.component';
 import { CourseComponent } from './course';
@@ -29,6 +30,7 @@ import { PipesModule } from '../../core/pipes';
     FormsModule,
     BrowserModule,
     PipesModule,
+    RouterModule,
   ],
   providers: [
   ]

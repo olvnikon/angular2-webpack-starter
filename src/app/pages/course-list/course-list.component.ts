@@ -1,11 +1,10 @@
 import {
-  Component, OnInit, Output, EventEmitter
+  Component, OnInit,
 } from '@angular/core';
 import { Course } from '../../core/entities';
 import { CourseService } from '../../core/services';
 import { SpinnerService } from '../../core/components/spinner';
 import template from './course-list.component.html';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   template,
@@ -17,7 +16,6 @@ export class CourseListComponent implements OnInit {
   public totalCount: number = 0;
   public activePage: number = 1;
   public itemsPerPage: number = 3;
-  @Output() private onPageChange = new EventEmitter();
   private coursesSubscription = null;
   private coursesCountSubscription = null;
 
@@ -35,14 +33,6 @@ export class CourseListComponent implements OnInit {
   public findCourses(filter: { filterString: string }): void {
     this.courseService.loadAll(1, this.itemsPerPage, filter.filterString);
     this.courseService.countAll(filter.filterString);
-  }
-
-  public createCourse(): void {
-    this.onPageChange.emit({ toPage: 'edit-course' });
-  }
-
-  public editCourse(course: Course): void {
-    //
   }
 
   public deleteCourse(course: Course): void {

@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { AuthService } from '../../core/services';
 import { SpinnerService } from '../../core/components/spinner';
 import template from './login.component.html';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   template,
@@ -11,37 +12,47 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  public isFormDisabled: boolean = false;
   public formGroup: FormGroup;
+  public wrongCredentials: boolean = false;
 
   constructor(private authService: AuthService,
               private spinnerService: SpinnerService,
               private ref: ChangeDetectorRef,
-              private formBuilder: FormBuilder
-  ) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
   }
 
   public ngOnInit(): void {
-    this.authService
-      .userInfoObservable
-      .subscribe(loggedUser => {
-        this.isFormDisabled = false;
-        this.ref.markForCheck();
-        this.spinnerService.stopLoading();
-      });
-
     this.formGroup = this.formBuilder.group({
       login: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+
+    this.authService
+      .userInfoObservable
+      .subscribe(loggedUser => {
+        this.formGroup.enable();
+        this.ref.markForCheck();
+        this.spinnerService.stopLoading();
+      });
   }
 
-  public login(e): void {
-    e.preventDefault();
+  public getErrorClass(control: FormControl): string {
+    return control.dirty && !!control.errors ?
+      'has-error' : '';
+  }
+
+  public login(form: FormGroup): void {
     this.spinnerService.runLoading();
-    this.isFormDisabled = true;
+    this.formGroup.disable();
     this.authService
-      .login('nikon', '12345')
-      .subscribe();
+      .login(form.controls.login.value, form.controls.password.value)
+      .subscribe(state => {
+        if (!state) {
+          this.wrongCredentials = true;
+        } else {
+          this.router.navigate(['/courses']);
+        }
+      });
   }
 }

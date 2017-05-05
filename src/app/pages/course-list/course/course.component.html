@@ -3,7 +3,7 @@
      [ngClass]="courseClass"
 >
     <div class="text-right course__controls">
-        <button (click)="onEditCourse()" type="button" class="btn btn-default">Edit course</button>
+        <button [routerLink]="['/courses/edit/' + course.id]" type="button" class="btn btn-default">Edit course</button>
         <button (click)="onDeleteCourse()" type="button" class="btn btn-danger">Delete</button>
     </div>
     <div class="course__info">

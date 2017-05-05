@@ -5,7 +5,7 @@ export function validateDate(control: FormControl): { [key: string]: boolean } {
     return null;
   }
 
-  const dateRegexp = new RegExp(/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/);
+  const dateRegexp = new RegExp(/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/);
   return isCorrectDate(control.value) && dateRegexp.test(control.value) ?
     null : { invalidDate: true };
 }

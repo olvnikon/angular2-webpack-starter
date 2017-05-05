@@ -1,11 +1,19 @@
 import { Routes } from '@angular/router';
-import { CourseListComponent } from './pages/course-list';
-import { CourseDetailsComponent } from './pages/course-details';
-import { LoginComponent } from './pages/login';
+import {
+  CourseListComponent,
+  CourseDetailsComponent,
+  LoginComponent,
+  EditCourseComponent,
+  NoContentComponent,
+} from './pages';
 
 export const ROUTES: Routes = [
-  { path: '', component: CourseListComponent },
   { path: 'courses', component: CourseListComponent },
+  { path: 'courses/new', component: EditCourseComponent },
+  { path: 'courses/edit/:id', component: EditCourseComponent },
   { path: 'courses/:id', component: CourseDetailsComponent },
   { path: 'login', component: LoginComponent },
+  { path: '404', component: NoContentComponent },
+  { path: '', redirectTo: 'courses', pathMatch: 'full' },
+  { path: '**', redirectTo: '404' },
 ];

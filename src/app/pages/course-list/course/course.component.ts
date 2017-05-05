@@ -11,17 +11,12 @@ import template from './course.component.html';
 export class CourseComponent {
   @Input() public course: Course;
   @Output() public deleteCourse = new EventEmitter();
-  @Output() public editCourse = new EventEmitter();
 
   public onDeleteCourse(): void {
     // ToDo: implement normal modal window
     if (confirm('Do you really want to delete this course?')) {
       this.deleteCourse.emit({ course: this.course });
     }
-  }
-
-  public onEditCourse(): void {
-    this.editCourse.emit({ course: this.course });
   }
 
   public get popularityClass() {

@@ -3,7 +3,7 @@ import { Course } from '../entities';
 import {
   Http, Request, RequestMethod, RequestOptions, Response
 } from '@angular/http';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class CourseService {
@@ -55,8 +55,17 @@ export class CourseService {
       .subscribe(count => this.coursesCount.next(count));
   }
 
-  public getById(id: number) {
-    //
+  public getById(id: string): Observable<Course> {
+    const requestOptions = new RequestOptions();
+    requestOptions.url = `${this.url}/${id}`;
+    requestOptions.method = RequestMethod.Get;
+
+    return this.http.request(new Request(requestOptions))
+      .map((response: Response): Course => this.convertToJson(response))
+      .map(course => {
+        course.date = new Date(course.date);
+        return course;
+      });
   }
 
   public create(course: Course): void {

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import template from './course-details.component.html';
 
 @Component({
@@ -7,6 +8,13 @@ import template from './course-details.component.html';
   styles: [require('./course-details.component.scss')],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseDetailsComponent {
+export class CourseDetailsComponent implements OnInit {
+  constructor(private activatedRoute: ActivatedRoute) {
 
+  }
+
+  public ngOnInit() {
+    this.activatedRoute.params
+      .subscribe(params => console.log(params));
+  }
 }

@@ -8,14 +8,5 @@ import template from './header.component.html';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  @Input() public pageName: string;
-  @Output() private onPageChange = new EventEmitter();
 
-  public goToLoginPage(): void {
-    this.onPageChange.emit({ toPage: 'login' });
-  }
-
-  public goToHomePage(): void {
-    this.onPageChange.emit({ toPage: 'course-list' });
-  }
 }

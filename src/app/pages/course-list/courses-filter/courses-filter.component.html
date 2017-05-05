@@ -27,7 +27,7 @@
             </ul>
         </div>
         <div class="form-group pull-right">
-            <button type="button" (click)="createCourse()" class="btn btn-success">
+            <button [routerLink]="['/courses/new']" class="btn btn-success" type="button">
                 <span class="glyphicon glyphicon-plus"></span>
                 Add course
             </button>

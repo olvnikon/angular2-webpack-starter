@@ -12,15 +12,10 @@ export class CoursesFilterComponent {
   public filterString: string;
   public sortBy: string = 'date';
   @Output() private filter = new EventEmitter();
-  @Output() private create = new EventEmitter();
 
   public find(): void {
     this.filter.emit({
       filterString: this.filterString
     });
-  }
-
-  public createCourse(): void {
-    this.create.emit();
   }
 }

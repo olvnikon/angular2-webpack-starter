@@ -26,6 +26,7 @@ export class AuthService {
 
     return this.http.post(`${this.url}/login`, JSON.stringify(loginInfo), options)
       .map((response: Response): LoginResponse => response.status === 200 ? response.json() : null)
+      .catch(() => Observable.of(null))
       .map((response: LoginResponse): LoggedUser => (
         response ?
           { id: response.uid, userName: username, token: response.id } : null
@@ -41,12 +42,8 @@ export class AuthService {
 
     return this.http
       .post(`${this.url}/logout`, JSON.stringify({}), options)
-      .subscribe(() => {
+      .do(() => {
         this.userInfo.next(null);
       });
-  }
-
-  public checkAuthenticationStatus_normal() {
-    // ToDo: this method should check authentication after page refresh
   }
 }

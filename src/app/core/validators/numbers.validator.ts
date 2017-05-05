@@ -5,6 +5,6 @@ export function validateNumbersOnly(control: FormControl): { [key: string]: bool
     return null;
   }
 
-  return Number(control.value).toString() === control.value ?
+  return Number(control.value).toString() === control.value.toString() ?
     null : { numbersOnly: true };
 }

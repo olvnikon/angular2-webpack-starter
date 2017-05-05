@@ -1,7 +1,7 @@
 import { Author } from './author';
 
 export interface Course {
-  id: number;
+  id: string;
   name: string;
   duration: number;
   date: Date;

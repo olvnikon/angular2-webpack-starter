@@ -1,8 +1,6 @@
 <spinner></spinner>
-<main-header [pageName]="pageName" (onPageChange)="goToPage($event)"></main-header>
+<main-header></main-header>
 <div class="container">
-    <course-list (onPageChange)="goToPage($event)" *ngIf="pageName === 'course-list'"></course-list>
-    <login *ngIf="pageName === 'login'"></login>
-    <edit-course *ngIf="pageName === 'edit-course'"></edit-course>
+    <router-outlet></router-outlet>
 </div>
 <main-footer></main-footer>

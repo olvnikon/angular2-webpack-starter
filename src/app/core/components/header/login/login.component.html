@@ -1,5 +1,5 @@
 <div class="navbar-right navbar-text header-login">
     {{userName}}
-    <a *ngIf="!userName" href="#" (click)="login($event)" class="navbar-link">Log In</a>
+    <a *ngIf="!userName" [routerLink]="['./login']" class="navbar-link">Log In</a>
     <a *ngIf="userName" href="#" (click)="logout($event)" class="navbar-link">Log Out</a>
 </div>

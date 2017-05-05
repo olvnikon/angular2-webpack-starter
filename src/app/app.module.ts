@@ -6,6 +6,7 @@ import {
   CourseListModule,
   LoginModule,
   EditCourseModule,
+  NoContentModule,
 } from './pages';
 import { CoreModule } from './core/components/core.module';
 import {
@@ -14,6 +15,8 @@ import {
   AuthorService,
 } from './core/services';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+import { ROUTES } from './app.routes';
 
 @NgModule({
   imports: [
@@ -21,8 +24,10 @@ import { HttpModule } from '@angular/http';
     CourseDetailsModule,
     CourseListModule,
     LoginModule,
+    NoContentModule,
     CoreModule,
     HttpModule,
+    RouterModule.forRoot(ROUTES, { useHash: true }),
     EditCourseModule,
   ],
   bootstrap: [
