@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { LoggedUser, LoginResponse } from '../entities';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Backend } from './backend.service';
 
 @Injectable()
 export class AuthService {
   public userInfo: BehaviorSubject<LoggedUser> = new BehaviorSubject(null);
   private url: string = 'http://localhost:2403/users';
 
-  constructor(private http: Http) {
+  constructor(private http: Backend) {
   }
 
   public isAuthenticated(): boolean {

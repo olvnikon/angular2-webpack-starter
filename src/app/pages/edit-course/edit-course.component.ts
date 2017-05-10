@@ -25,18 +25,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.activatedRoute
-      .params
-      .subscribe(params => {
-        if (!params.id) {
-          return;
-        }
-
-        this.courseService
-            .getById(params.id)
-            .subscribe(course => this.fillForm(course));
-      });
-
+    this.initForm();
     this.loadAllAuthors();
     this.buildForm();
   }
@@ -47,11 +36,35 @@ export class EditCourseComponent implements OnInit {
   }
 
   public save(form: FormGroup) {
-    console.log(form);
+    this.courseService.create(
+      {
+        id: '',
+        name: form.controls.title.value,
+        duration: form.controls.duration.value,
+        date: new Date(form.controls.date.value),
+        description: form.controls.description.value,
+        votes: 0,
+        authors: []
+      }
+    );
   }
 
   public cancel(form: FormGroup) {
     form.reset();
+  }
+
+  private initForm() {
+    this.activatedRoute
+      .params
+      .subscribe(params => {
+        if (!params.id) {
+          return;
+        }
+
+        this.courseService
+          .getById(params.id)
+          .subscribe(course => this.fillForm(course));
+      });
   }
 
   private loadAllAuthors(): void {

@@ -13,8 +13,9 @@ import {
   AuthService,
   CourseService,
   AuthorService,
+  Backend,
 } from './core/services';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 
@@ -40,6 +41,13 @@ import { ROUTES } from './app.routes';
     AuthService,
     CourseService,
     AuthorService,
+    {
+      provide: Backend,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new Backend(backend, options);
+      },
+      deps: [XHRBackend, RequestOptions],
+    },
   ],
 })
 export class AppModule {

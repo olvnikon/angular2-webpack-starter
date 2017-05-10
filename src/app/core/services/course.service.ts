@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../entities';
 import {
-  Http, Request, RequestMethod, RequestOptions, Response
+  Request, RequestMethod, RequestOptions, Response
 } from '@angular/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Backend } from './backend.service';
 
 @Injectable()
 export class CourseService {
@@ -12,7 +13,7 @@ export class CourseService {
   private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
   private coursesCount: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  public constructor(private http: Http) {
+  public constructor(private http: Backend) {
   }
 
   public get coursesObservable() {
@@ -23,9 +24,9 @@ export class CourseService {
     return this.coursesCount.asObservable();
   }
 
-  public loadAll(page: number = 1,
-                 itemsPerPage: number = 3,
-                 filterString: string = ''): void {
+  public loadAll(page = 1,
+                 itemsPerPage = 3,
+                 filterString = ''): void {
     const query = {
       $limit: itemsPerPage,
       $skip: (page - 1) * itemsPerPage,
@@ -69,7 +70,14 @@ export class CourseService {
   }
 
   public create(course: Course): void {
-    //
+    const requestOptions = new RequestOptions();
+    requestOptions.url = this.url;
+    requestOptions.method = RequestMethod.Post;
+    requestOptions.body = JSON.stringify(course);
+
+    this.http.request(new Request(requestOptions))
+      .map((response: Response) => console.log(response))
+      .subscribe();
   }
 
   public update(course: Course): void {
