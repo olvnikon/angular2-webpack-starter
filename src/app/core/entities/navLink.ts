@@ -1,4 +1,5 @@
 export interface NavLink {
-  url: string;
+  url?: string;
   caption: string;
+  isActive?: boolean;
 }

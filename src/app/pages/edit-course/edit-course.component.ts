@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import template from './edit-course.component.html';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { validateDate, validateNumbersOnly, atLeastOne } from '../../core/validators';
@@ -20,7 +20,8 @@ export class EditCourseComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
               private authorService: AuthorService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
 
   }
 
@@ -49,8 +50,8 @@ export class EditCourseComponent implements OnInit {
     );
   }
 
-  public cancel(form: FormGroup) {
-    form.reset();
+  public cancel() {
+    this.router.navigate(['/courses']);
   }
 
   private initForm() {

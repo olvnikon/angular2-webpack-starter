@@ -10,10 +10,15 @@ import { Backend } from './backend.service';
 export class CourseService {
   private outdatedPeriod = 14 * 24 * 60 * 60 * 1000;
   private url: string = 'http://localhost:2403/courses';
+  private course: BehaviorSubject<Course> = new BehaviorSubject(null);
   private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
   private coursesCount: BehaviorSubject<number> = new BehaviorSubject(0);
 
   public constructor(private http: Backend) {
+  }
+
+  public get courseObservable() {
+    return this.course.asObservable();
   }
 
   public get coursesObservable() {
@@ -37,10 +42,7 @@ export class CourseService {
 
     this.http.request(request)
       .map((response: Response): Course[] => this.convertToJson(response))
-      .map(courses => courses.map(course => {
-        course.date = new Date(course.date);
-        return course;
-      }))
+      .map(courses => courses.map(this.processCourseFromDB))
       .subscribe(courses => this.courses.next(courses));
   }
 
@@ -63,9 +65,9 @@ export class CourseService {
 
     return this.http.request(new Request(requestOptions))
       .map((response: Response): Course => this.convertToJson(response))
-      .map(course => {
-        course.date = new Date(course.date);
-        return course;
+      .map((course) => {
+        this.course.next(this.processCourseFromDB(course));
+        return this.course.getValue();
       });
   }
 
@@ -86,6 +88,12 @@ export class CourseService {
 
   public remove(course: Course): void {
     //
+  }
+
+  private processCourseFromDB(course: Course): Course {
+    course.authors = course.authors || [];
+    course.date = new Date(course.date);
+    return course;
   }
 
   private get freshPeriodStart(): number {

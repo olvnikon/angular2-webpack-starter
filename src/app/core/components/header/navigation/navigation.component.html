@@ -1,6 +1,8 @@
 <div class="navbar-left navbar-text header-nav">
     <ol class="breadcrumb header-nav__breadcrumb">
-        <li><a [routerLink]="['/']">Home</a></li>
-        <li class="active">Courses</li>
+        <li *ngFor="let breadcrumb of breadcrumbs" [ngClass]="{'active': breadcrumb.isActive}">
+          <a *ngIf="!breadcrumb.isActive" [routerLink]="[breadcrumb.url]">{{breadcrumb.caption}}</a>
+          <span *ngIf="breadcrumb.isActive">{{breadcrumb.caption}}</span>
+        </li>
     </ol>
 </div>
