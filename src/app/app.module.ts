@@ -18,6 +18,10 @@ import {
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
+import {
+  CanActivateCourses,
+  CanActivateLogin,
+} from './core/route-guards';
 
 @NgModule({
   imports: [
@@ -41,6 +45,8 @@ import { ROUTES } from './app.routes';
     AuthService,
     CourseService,
     AuthorService,
+    CanActivateCourses,
+    CanActivateLogin,
     {
       provide: Backend,
       useFactory: (backend: XHRBackend, options: RequestOptions) => {

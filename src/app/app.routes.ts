@@ -6,14 +6,18 @@ import {
   EditCourseComponent,
   NoContentComponent,
 } from './pages';
+import {
+  CanActivateCourses,
+  CanActivateLogin,
+} from './core/route-guards';
 
 export const ROUTES: Routes = [
-  { path: 'courses', component: CourseListComponent },
-  { path: 'courses/new', component: EditCourseComponent },
-  { path: 'courses/edit/:id', component: EditCourseComponent },
-  { path: 'courses/:id', component: CourseDetailsComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'courses', component: CourseListComponent, canActivate: [CanActivateCourses] },
+  { path: 'courses/new', component: EditCourseComponent, canActivate: [CanActivateCourses] },
+  { path: 'courses/edit/:id', component: EditCourseComponent, canActivate: [CanActivateCourses] },
+  { path: 'courses/:id', component: CourseDetailsComponent, canActivate: [CanActivateCourses] },
+  { path: 'login', component: LoginComponent, canActivate: [CanActivateLogin] },
   { path: '404', component: NoContentComponent },
-  { path: '', redirectTo: 'courses', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: '404' },
 ];
