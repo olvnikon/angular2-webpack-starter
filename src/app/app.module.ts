@@ -22,6 +22,8 @@ import {
   CanActivateCourses,
   CanActivateLogin,
 } from './core/route-guards';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './core/reducers';
 
 @NgModule({
   imports: [
@@ -34,6 +36,7 @@ import {
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     EditCourseModule,
+    StoreModule.provideStore({ loggedUser: authReducer }),
   ],
   bootstrap: [
     AppComponent,

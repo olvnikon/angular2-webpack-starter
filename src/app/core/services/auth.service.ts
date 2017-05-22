@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
 import { LoggedUser, LoginResponse } from '../entities';
 import { Headers, RequestOptions, Response } from '@angular/http';
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { Backend } from './backend.service';
+import { Store } from '@ngrx/store';
+import { LOG_IN, LOG_OUT } from '../reducers';
 
 @Injectable()
 export class AuthService {
-  public userInfo: BehaviorSubject<LoggedUser> = new BehaviorSubject(null);
+  private loggedUser: Observable<LoggedUser> = null;
   private url: string = 'http://localhost:2403/users';
 
-  constructor(private http: Backend) {
-  }
-
-  public isAuthenticated(): boolean {
-    return !!this.userInfo.getValue();
-  }
-
-  public get userInfoObservable(): Observable<LoggedUser> {
-    return this.userInfo.asObservable();
+  constructor(private http: Backend, private store: Store<LoggedUser>) {
+    this.loggedUser = this.store.select<LoggedUser>('loggedUser');
   }
 
   public login(username: string, password: string): Observable<LoggedUser> {
@@ -33,7 +28,7 @@ export class AuthService {
           { id: response.uid, userName: username, token: response.id } : null
       ))
       .do((user: LoggedUser) => {
-        this.userInfo.next(user);
+        this.store.dispatch({ type: LOG_IN, payload: user });
       });
   }
 
@@ -44,7 +39,7 @@ export class AuthService {
     return this.http
       .post(`${this.url}/logout`, JSON.stringify({}), options)
       .do(() => {
-        this.userInfo.next(null);
+        this.store.dispatch({ type: LOG_OUT });
       });
   }
 }

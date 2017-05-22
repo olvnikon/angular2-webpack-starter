@@ -4,6 +4,8 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services';
 import template from './login.component.html';
+import { Store } from '@ngrx/store';
+import { LoggedUser } from '../../../entities';
 
 @Component({
   template,
@@ -16,18 +18,17 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private ref: ChangeDetectorRef,
-              private router: Router) {
+              private router: Router,
+              private store: Store<LoggedUser>) {
 
   }
 
   public ngOnInit(): void {
-    this.authService
-      .userInfoObservable
-      .subscribe(loggedUser => {
-        this.userName = loggedUser ?
-          loggedUser.userName : '';
-        this.ref.markForCheck();
-      });
+    this.store.subscribe(loggedUser => {
+      this.userName = loggedUser ?
+        loggedUser.userName : '';
+      this.ref.markForCheck();
+    });
   }
 
   public logout(e): void {

@@ -4,6 +4,8 @@ import { SpinnerService } from '../../core/components/spinner';
 import template from './login.component.html';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { LoggedUser } from '../../core/entities';
 
 @Component({
   template,
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
               private spinnerService: SpinnerService,
               private ref: ChangeDetectorRef,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private store: Store<LoggedUser>) {
   }
 
   public ngOnInit(): void {
@@ -28,13 +31,11 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
 
-    this.authService
-      .userInfoObservable
-      .subscribe(loggedUser => {
-        this.formGroup.enable();
-        this.ref.markForCheck();
-        this.spinnerService.stopLoading();
-      });
+    this.store.subscribe(() => {
+      this.formGroup.enable();
+      this.ref.markForCheck();
+      this.spinnerService.stopLoading();
+    });
   }
 
   public getErrorClass(control: FormControl): string {
