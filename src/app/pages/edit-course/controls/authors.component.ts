@@ -24,7 +24,9 @@ const CUSTOM_AUTHORS_CONTROL_ACCESSOR = {
                       size="5"
                       #select
                       name="{{nameOption}}">
-                  <option *ngFor="let author of authors" [value]="author.name">
+                  <option *ngFor="let author of authors"
+                          [value]="author.name"
+                          [selected]="isSelected(author)">
                       {{author.name}}
                   </option>
               </select>
@@ -42,6 +44,10 @@ export class AuthorsControlComponent implements ControlValueAccessor, AfterViewI
 
   public onChange = val => val;
   public onTouched = () => 1;
+
+  public isSelected(author: Author): boolean {
+    return this.currentValue.indexOf(author.name) > -1;
+  }
 
   public get value(): string[] {
     return this.currentValue;

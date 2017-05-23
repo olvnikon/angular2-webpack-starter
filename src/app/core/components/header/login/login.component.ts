@@ -6,6 +6,7 @@ import { AuthService } from '../../../services';
 import template from './login.component.html';
 import { Store } from '@ngrx/store';
 import { LoggedUser } from '../../../entities';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   template,
@@ -15,16 +16,17 @@ import { LoggedUser } from '../../../entities';
 })
 export class LoginComponent implements OnInit {
   public userName: string;
+  private loggedUser: Observable<LoggedUser>;
 
   constructor(private authService: AuthService,
               private ref: ChangeDetectorRef,
               private router: Router,
               private store: Store<LoggedUser>) {
-
+    this.loggedUser = this.store.select<LoggedUser>('loggedUser');
   }
 
   public ngOnInit(): void {
-    this.store.subscribe(loggedUser => {
+    this.loggedUser.subscribe(loggedUser => {
       this.userName = loggedUser ?
         loggedUser.userName : '';
       this.ref.markForCheck();

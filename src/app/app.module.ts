@@ -23,7 +23,7 @@ import {
   CanActivateLogin,
 } from './core/route-guards';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from './core/reducers';
+import { authReducer, coursesReducer, activeCourseReducer } from './core/reducers';
 
 @NgModule({
   imports: [
@@ -36,7 +36,11 @@ import { authReducer } from './core/reducers';
     HttpModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     EditCourseModule,
-    StoreModule.provideStore({ loggedUser: authReducer }),
+    StoreModule.provideStore({
+      loggedUser: authReducer,
+      courses: coursesReducer,
+      activeCourse: activeCourseReducer,
+    }),
   ],
   bootstrap: [
     AppComponent,

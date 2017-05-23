@@ -3,6 +3,8 @@ import template from './navigation.component.html';
 import { Router, NavigationEnd, ActivatedRoute, UrlSegment } from '@angular/router';
 import { NavLink, Course } from '../../../entities';
 import { CourseService } from '../../../services';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   template,
@@ -12,11 +14,13 @@ import { CourseService } from '../../../services';
 })
 export class NavigationComponent implements OnInit {
   public breadcrumbs: NavLink[] = [];
+  private activeCourse: Observable<Course> = null;
 
   constructor(private router: Router,
               private ref: ChangeDetectorRef,
               private activatedRoute: ActivatedRoute,
-              private courseService: CourseService) {
+              private store: Store<Course>) {
+    this.activeCourse = this.store.select<Course>('activeCourse');
   }
 
   public ngOnInit() {
@@ -27,10 +31,12 @@ export class NavigationComponent implements OnInit {
         this.ref.markForCheck();
       });
 
-    this.courseService.courseObservable
+    this.activeCourse
       .subscribe((course: Course) => {
         if (course) {
-          this.breadcrumbs = [...this.breadcrumbs, { caption: course.name, isActive: true }];
+          this.breadcrumbs = [
+            ...this.refreshedBreadcrumbs, { caption: course.name, isActive: true }
+          ];
           this.ref.markForCheck();
         }
       });

@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LoggedUser } from '../../core/entities';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   template,
@@ -16,6 +17,7 @@ import { LoggedUser } from '../../core/entities';
 export class LoginComponent implements OnInit {
   public formGroup: FormGroup;
   public wrongCredentials: boolean = false;
+  private loggedUser: Observable<LoggedUser>;
 
   constructor(private authService: AuthService,
               private spinnerService: SpinnerService,
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router,
               private store: Store<LoggedUser>) {
+    this.loggedUser = this.store.select<LoggedUser>('loggedUser');
   }
 
   public ngOnInit(): void {
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
 
-    this.store.subscribe(() => {
+    this.loggedUser.subscribe(() => {
       this.formGroup.enable();
       this.ref.markForCheck();
       this.spinnerService.stopLoading();

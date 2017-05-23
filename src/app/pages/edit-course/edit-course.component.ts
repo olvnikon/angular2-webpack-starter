@@ -5,6 +5,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { validateDate, validateNumbersOnly, atLeastOne } from '../../core/validators';
 import { AuthorService, CourseService, } from '../../core/services';
 import { Author, Course, } from '../../core/entities';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { SpinnerService } from '../../core/components/spinner';
 
 @Component({
   template,
@@ -16,19 +19,23 @@ export class EditCourseComponent implements OnInit {
   public authors: Author[] = [];
   private maxTitleLength: number = 50;
   private maxDescriptionLength: number = 500;
+  private activeCourse: Observable<Course>;
+  private courseId: string = '';
 
   constructor(private formBuilder: FormBuilder,
               private courseService: CourseService,
               private authorService: AuthorService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
-
+              private spinnerService: SpinnerService,
+              private router: Router,
+              private store: Store<Course>) {
+    this.activeCourse = this.store.select<Course>('activeCourse');
   }
 
   public ngOnInit(): void {
+    this.buildForm();
     this.initForm();
     this.loadAllAuthors();
-    this.buildForm();
   }
 
   public getErrorClass(control: FormControl): string {
@@ -37,17 +44,22 @@ export class EditCourseComponent implements OnInit {
   }
 
   public save(form: FormGroup) {
-    this.courseService.create(
-      {
-        id: '',
-        name: form.controls.title.value,
-        duration: form.controls.duration.value,
-        date: new Date(form.controls.date.value),
-        description: form.controls.description.value,
-        votes: 0,
-        authors: []
-      }
-    );
+    this.spinnerService.runLoading();
+    const course = {
+      id: this.courseId,
+      name: form.controls.title.value,
+      duration: form.controls.duration.value,
+      date: new Date(form.controls.date.value),
+      description: form.controls.description.value,
+      votes: 0,
+      authors: form.controls.authors.value
+    };
+
+    if (!!this.courseId) {
+      this.courseService.update(course, this.courseId);
+    } else {
+      this.courseService.create(course);
+    }
   }
 
   public cancel() {
@@ -55,17 +67,14 @@ export class EditCourseComponent implements OnInit {
   }
 
   private initForm() {
-    this.activatedRoute
-      .params
-      .subscribe(params => {
-        if (!params.id) {
-          return;
-        }
+    this.activatedRoute.params.subscribe(params => {
+      if (!params.id) {
+        return;
+      }
 
-        this.courseService
-          .getById(params.id)
-          .subscribe(course => this.fillForm(course));
-      });
+      this.activeCourse.subscribe(course => course && this.fillForm(course));
+      this.courseService.loadOne(params.id);
+    });
   }
 
   private loadAllAuthors(): void {
@@ -86,10 +95,12 @@ export class EditCourseComponent implements OnInit {
   }
 
   private fillForm(course: Course): void {
+    this.courseId = course.id;
     this.formGroup.controls.title.setValue(course.name);
     this.formGroup.controls.description.setValue(course.description);
     this.formGroup.controls.date.setValue(course.date.toLocaleDateString());
     this.formGroup.controls.duration.setValue(course.duration);
     this.formGroup.controls.authors.setValue([...course.authors]);
+    this.spinnerService.stopLoading();
   }
 }
